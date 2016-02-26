@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Eliseealex-1s on Блог Александра Елисеева</title>
+    <link>http://eliseealex.me/eliseealex-1/</link>
+    <description>Recent content in Eliseealex-1s on Блог Александра Елисеева</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 22 May 2016 10:04:13 +0300</lastBuildDate>
+    <atom:link href="http://eliseealex.me/eliseealex-1/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Сноски на полях для блогов</title>
+      <link>http://eliseealex.me/eliseealex-1/1-factoids/</link>
+      <pubDate>Sun, 22 May 2016 10:04:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/eliseealex-1/1-factoids/</guid>
+      <description>
+
+&lt;p&gt;Впервые я увидел сноски в &lt;a href=&#34;http://artgorbunov.ru/bb/soviet/&#34;&gt;советах бюро Артёма Горбунова&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Они используют их для навигации между статьями:
+&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20160519/&#34;&gt;http://artgorbunov.ru/bb/soviet/20160519/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Для ссылок, привязанных к контексту:
+&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20160510/&#34;&gt;http://artgorbunov.ru/bb/soviet/20160510/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Для выводов и примеров:
+&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20160509/&#34;&gt;http://artgorbunov.ru/bb/soviet/20160509/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Приём пришёл из книжной типографики.
+Теперь я радуюсь, когда встречаю эти элементы в книгах.
+Я использовал этот приём на лекциях в универе и грущу, что не узнал о них ещё в школе.&lt;/p&gt;
+
+&lt;p&gt;Фактоиды позволяют разнообразить вёрстку текста:
+&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141117/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141117/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Отлично смотрятся фактоиды с большими цифрами:
+&lt;a href=&#34;http://gosuslugi.rocketmind.ru/help.html&#34;&gt;http://gosuslugi.rocketmind.ru/help.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Или сноски-картинки, как в Тинькофф Журнале:
+&lt;a href=&#34;http://journal.tinkoff.ru/dead/&#34;&gt;http://journal.tinkoff.ru/dead/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Сноски-выводы — отличная идея (лучше смотреть на компьютере):
+&lt;a href=&#34;http://journal.tinkoff.ru/icloud/&#34;&gt;http://journal.tinkoff.ru/icloud/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;реализация-сносок:b9ffafdddada0bdbe4ddd77d06289b62&#34;&gt;Реализация сносок&lt;/h2&gt;
+
+&lt;p&gt;Когда я &lt;a href=&#34;http://eliseealex.me/lispress/2-blog-engine&#34;&gt;выбирал платформу для блогов&lt;/a&gt;, я хотел, чтобы добавление сносок было простым и не отвлекало от создания статьи.
+И markdown для этого подходит отлично, он не такой низкоуровневый, как html, но его синтаксис позволяет использовать код на html, если нужно.
+То есть, можно создать шаблон для фактоида и использовать его в процессе написания статьи.&lt;/p&gt;
+
+&lt;p&gt;Как это можно сделать:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Можно использовать для этого табличную вёрстку, как &lt;a href=&#34;http://artgorbunov.ru/bb/soviet&#34;&gt;сделано в бюро&lt;/a&gt;.
+&lt;em&gt;Так уже не делают, из-за неё возникают проблемы с адаптивностью&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Можно использовать колонки бутстрапа. В них можно настроить количество колонок в строке, в зависимости от ширины экрана.
+&lt;em&gt;Это удобно, но не подходит для маркдауна. Если текст будет находиться в другой колонке, то придётся каждый раз открывать и закрывать теги, чтобы создать новую колонку&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Или можно завести для этого отдельный тег, как в &lt;a href=&#34;http://journal.tinkoff.ru/crafting/&#34;&gt;Тинькофф Журнале&lt;/a&gt;
+и самостоятельно решить, как он будет выглядеть на разных экранах.
+&lt;em&gt;Я выбрал этот вариант, потому что его удобнее всего использовать в markdown&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Сноски на широком экране выглядят так:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://eliseealex.me/image/eliseealex-1/1-factoids/big-factoid.png&#34; title=&#34;Пример сносок на широком экране&#34; alt=&#34;Пример сносок на широком экране&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Нужно задуматься о том, как это будет выглядеть на экранах разных размеров.
+Точнее, как будут выглядеть сноски, если на экране нет полей.
+На таких экранах, можно их убирать полностью, но я решил, что буду просто использовать отступы:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://eliseealex.me/image/eliseealex-1/1-factoids/little-factoid.png&#34; title=&#34;Пример сносок на узком экране&#34; alt=&#34;Пример сносок на узком экране&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Из-за того, что я не хотел отвлекаться от написания текста на добавление сносок, я использовал для этого только один тег:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div class=&amp;quot;factoid&amp;quot;&amp;gt;
+  &amp;lt;a href=&amp;quot;http://doc.akka.io/docs/akka/current/scala/actors.html&amp;quot;&amp;gt;Больше примеров&amp;lt;/a&amp;gt;&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;
+  &amp;lt;a href=&amp;quot;http://docs.scala-lang.org/tutorials/tour/pattern-matching.html&amp;quot;&amp;gt;О Pattern Matching&amp;lt;/a&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Для этого мне понадобился один класс, который я изменяю на узких с помощью медиа-запроса:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.factoid {
+   width: 180px;
+   left: 100%;
+   margin-left: 4em;
+   position: absolute;
+   font-size: 0.85em;
+}
+
+@media only screen and (max-width:992px) {
+  .factoid {
+    position:relative;
+    width:auto;
+    left:auto;
+    margin-left:2em;
+    font-size:1em
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Теперь я использую сноски для навигации, фактов и ссылок.
+Вверху я добавил ссылки на все шаги эксперимента, а внизу ссылку на следующие
+статьи по теме и по порядку, и на связанные статьи.&lt;/p&gt;
+
+&lt;h2 id=&#34;автоматизация-для-hugo:b9ffafdddada0bdbe4ddd77d06289b62&#34;&gt;Автоматизация для Hugo&lt;/h2&gt;
+
+&lt;p&gt;Сноски на html выглядят не очень красиво посреди статьи на markdown&amp;rsquo;е.
+Поэтому появилось желание автоматизировать дальше и использовать для этого &lt;a href=&#34;https://gohugo.io/extras/shortcodes/&#34;&gt;шорткоды&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Для этого мне пришлось в папке &lt;code&gt;layout/shortcodes&lt;/code&gt; в своей теме добавить
+файл &lt;code&gt;factoid.html&lt;/code&gt; со следующим содержимым:&lt;/p&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/hugo-lis/blob/master/layouts/shortcodes/factoid.html&#34;&gt;В теме на гитхабе&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div class=&amp;quot;factoid&amp;quot;&amp;gt;
+  {{ .Inner }}
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;И теперь я могу вставлять фактоиды в текст с помощью пары строчек:&lt;/p&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/lis.press.hugo/tree/master/content/eliseealex-1/1-factoids.md&#34;&gt;Статья на гитхабе&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% factoid %}}
+
+[Статья на гитхабе](https://github.com/eliseealex/lis.press.hugo/tree/master/content/eliseealex-1/1-factoids.md)
+
+{{% /factoid %}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- ** to make highlighter happy --&gt;
+
+&lt;p&gt;Теперь можно добавить сниппет в &lt;a href=&#34;https://www.alfredapp.com/&#34;&gt;alfred&lt;/a&gt; или любую
+другую программу для управления буфером обмена и пользоваться фактоидами
+без проблем.&lt;/p&gt;
+
+&lt;p&gt;Используйте боковые сноски, они делают чтение текста легче.&lt;/p&gt;
+
+&lt;div class=&#34;factoid-bottom factoid&#34;&gt;
+  &lt;p&gt;В следующей статье я расскажу о важных блоках.&lt;/p&gt;
+
+&lt;p&gt;Пока что, советую прочитать &lt;a href=&#34;http://eliseealex.me/text/goal-webinar&#34;&gt;конспект вебинара о целях текста&lt;/a&gt;.&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;!-- ### Создание статьи
+
+Кто является аудиторией статьи? (можно перечислить несколько вариантов и расписать цель для каждого из них)
+Читатели, которые имеют свой блог и хотят его разнообразить
+
+Какова цель написания этой статьи?
+Показать, как можно использовать фактоиды у себя на сайте
+
+Что я хочу от читателя из этой аудитории?
+Чтобы он оценил этот элемент интерфейса и разнообразил свой контент на сайте с помощью фактоидов
+
+Какие будут задачи для этого читателя?
+
+- Представиться, очень кратко рассказать о себе;
+- Описать полезное действие от статьи;
+- ...
+- ???
+- ...
+- Оставить призыв к действию;
+- Оставить обратную связь. --&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

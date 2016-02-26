@@ -1,0 +1,1157 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Блог Александра Елисеева</title>
+    <link>http://eliseealex.me/</link>
+    <description>Recent content on Блог Александра Елисеева</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 22 May 2016 10:04:13 +0300</lastBuildDate>
+    <atom:link href="http://eliseealex.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Сноски на полях для блогов</title>
+      <link>http://eliseealex.me/eliseealex-1/1-factoids/</link>
+      <pubDate>Sun, 22 May 2016 10:04:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/eliseealex-1/1-factoids/</guid>
+      <description>
+
+&lt;p&gt;Впервые я увидел сноски в &lt;a href=&#34;http://artgorbunov.ru/bb/soviet/&#34;&gt;советах бюро Артёма Горбунова&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Они используют их для навигации между статьями:
+&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20160519/&#34;&gt;http://artgorbunov.ru/bb/soviet/20160519/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Для ссылок, привязанных к контексту:
+&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20160510/&#34;&gt;http://artgorbunov.ru/bb/soviet/20160510/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Для выводов и примеров:
+&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20160509/&#34;&gt;http://artgorbunov.ru/bb/soviet/20160509/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Приём пришёл из книжной типографики.
+Теперь я радуюсь, когда встречаю эти элементы в книгах.
+Я использовал этот приём на лекциях в универе и грущу, что не узнал о них ещё в школе.&lt;/p&gt;
+
+&lt;p&gt;Фактоиды позволяют разнообразить вёрстку текста:
+&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141117/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141117/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Отлично смотрятся фактоиды с большими цифрами:
+&lt;a href=&#34;http://gosuslugi.rocketmind.ru/help.html&#34;&gt;http://gosuslugi.rocketmind.ru/help.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Или сноски-картинки, как в Тинькофф Журнале:
+&lt;a href=&#34;http://journal.tinkoff.ru/dead/&#34;&gt;http://journal.tinkoff.ru/dead/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Сноски-выводы — отличная идея (лучше смотреть на компьютере):
+&lt;a href=&#34;http://journal.tinkoff.ru/icloud/&#34;&gt;http://journal.tinkoff.ru/icloud/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;реализация-сносок:b9ffafdddada0bdbe4ddd77d06289b62&#34;&gt;Реализация сносок&lt;/h2&gt;
+
+&lt;p&gt;Когда я &lt;a href=&#34;http://eliseealex.me/lispress/2-blog-engine&#34;&gt;выбирал платформу для блогов&lt;/a&gt;, я хотел, чтобы добавление сносок было простым и не отвлекало от создания статьи.
+И markdown для этого подходит отлично, он не такой низкоуровневый, как html, но его синтаксис позволяет использовать код на html, если нужно.
+То есть, можно создать шаблон для фактоида и использовать его в процессе написания статьи.&lt;/p&gt;
+
+&lt;p&gt;Как это можно сделать:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Можно использовать для этого табличную вёрстку, как &lt;a href=&#34;http://artgorbunov.ru/bb/soviet&#34;&gt;сделано в бюро&lt;/a&gt;.
+&lt;em&gt;Так уже не делают, из-за неё возникают проблемы с адаптивностью&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Можно использовать колонки бутстрапа. В них можно настроить количество колонок в строке, в зависимости от ширины экрана.
+&lt;em&gt;Это удобно, но не подходит для маркдауна. Если текст будет находиться в другой колонке, то придётся каждый раз открывать и закрывать теги, чтобы создать новую колонку&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Или можно завести для этого отдельный тег, как в &lt;a href=&#34;http://journal.tinkoff.ru/crafting/&#34;&gt;Тинькофф Журнале&lt;/a&gt;
+и самостоятельно решить, как он будет выглядеть на разных экранах.
+&lt;em&gt;Я выбрал этот вариант, потому что его удобнее всего использовать в markdown&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Сноски на широком экране выглядят так:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://eliseealex.me/image/eliseealex-1/1-factoids/big-factoid.png&#34; title=&#34;Пример сносок на широком экране&#34; alt=&#34;Пример сносок на широком экране&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Нужно задуматься о том, как это будет выглядеть на экранах разных размеров.
+Точнее, как будут выглядеть сноски, если на экране нет полей.
+На таких экранах, можно их убирать полностью, но я решил, что буду просто использовать отступы:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://eliseealex.me/image/eliseealex-1/1-factoids/little-factoid.png&#34; title=&#34;Пример сносок на узком экране&#34; alt=&#34;Пример сносок на узком экране&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Из-за того, что я не хотел отвлекаться от написания текста на добавление сносок, я использовал для этого только один тег:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div class=&amp;quot;factoid&amp;quot;&amp;gt;
+  &amp;lt;a href=&amp;quot;http://doc.akka.io/docs/akka/current/scala/actors.html&amp;quot;&amp;gt;Больше примеров&amp;lt;/a&amp;gt;&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;
+  &amp;lt;a href=&amp;quot;http://docs.scala-lang.org/tutorials/tour/pattern-matching.html&amp;quot;&amp;gt;О Pattern Matching&amp;lt;/a&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Для этого мне понадобился один класс, который я изменяю на узких с помощью медиа-запроса:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.factoid {
+   width: 180px;
+   left: 100%;
+   margin-left: 4em;
+   position: absolute;
+   font-size: 0.85em;
+}
+
+@media only screen and (max-width:992px) {
+  .factoid {
+    position:relative;
+    width:auto;
+    left:auto;
+    margin-left:2em;
+    font-size:1em
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Теперь я использую сноски для навигации, фактов и ссылок.
+Вверху я добавил ссылки на все шаги эксперимента, а внизу ссылку на следующие
+статьи по теме и по порядку, и на связанные статьи.&lt;/p&gt;
+
+&lt;h2 id=&#34;автоматизация-для-hugo:b9ffafdddada0bdbe4ddd77d06289b62&#34;&gt;Автоматизация для Hugo&lt;/h2&gt;
+
+&lt;p&gt;Сноски на html выглядят не очень красиво посреди статьи на markdown&amp;rsquo;е.
+Поэтому появилось желание автоматизировать дальше и использовать для этого &lt;a href=&#34;https://gohugo.io/extras/shortcodes/&#34;&gt;шорткоды&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Для этого мне пришлось в папке &lt;code&gt;layout/shortcodes&lt;/code&gt; в своей теме добавить
+файл &lt;code&gt;factoid.html&lt;/code&gt; со следующим содержимым:&lt;/p&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/hugo-lis/blob/master/layouts/shortcodes/factoid.html&#34;&gt;В теме на гитхабе&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div class=&amp;quot;factoid&amp;quot;&amp;gt;
+  {{ .Inner }}
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;И теперь я могу вставлять фактоиды в текст с помощью пары строчек:&lt;/p&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/lis.press.hugo/tree/master/content/eliseealex-1/1-factoids.md&#34;&gt;Статья на гитхабе&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% factoid %}}
+
+[Статья на гитхабе](https://github.com/eliseealex/lis.press.hugo/tree/master/content/eliseealex-1/1-factoids.md)
+
+{{% /factoid %}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- ** to make highlighter happy --&gt;
+
+&lt;p&gt;Теперь можно добавить сниппет в &lt;a href=&#34;https://www.alfredapp.com/&#34;&gt;alfred&lt;/a&gt; или любую
+другую программу для управления буфером обмена и пользоваться фактоидами
+без проблем.&lt;/p&gt;
+
+&lt;p&gt;Используйте боковые сноски, они делают чтение текста легче.&lt;/p&gt;
+
+&lt;div class=&#34;factoid-bottom factoid&#34;&gt;
+  &lt;p&gt;В следующей статье я расскажу о важных блоках.&lt;/p&gt;
+
+&lt;p&gt;Пока что, советую прочитать &lt;a href=&#34;http://eliseealex.me/text/goal-webinar&#34;&gt;конспект вебинара о целях текста&lt;/a&gt;.&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;!-- ### Создание статьи
+
+Кто является аудиторией статьи? (можно перечислить несколько вариантов и расписать цель для каждого из них)
+Читатели, которые имеют свой блог и хотят его разнообразить
+
+Какова цель написания этой статьи?
+Показать, как можно использовать фактоиды у себя на сайте
+
+Что я хочу от читателя из этой аудитории?
+Чтобы он оценил этот элемент интерфейса и разнообразил свой контент на сайте с помощью фактоидов
+
+Какие будут задачи для этого читателя?
+
+- Представиться, очень кратко рассказать о себе;
+- Описать полезное действие от статьи;
+- ...
+- ???
+- ...
+- Оставить призыв к действию;
+- Оставить обратную связь. --&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Создание проекта, настройка логирования и подключение зависимостей</title>
+      <link>http://eliseealex.me/dynamica-1/3-configuration/</link>
+      <pubDate>Sat, 21 May 2016 13:55:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/dynamica-1/3-configuration/</guid>
+      <description>
+
+&lt;p&gt;В &lt;a href=&#34;http://eliseealex.me/dynamica-1/2-requirements/#практика:a83e134770bff64237826b69845b3034&#34;&gt;конце прошлого шага&lt;/a&gt;
+я показал модель системной архитектуры, которую мне предстоит реализовать.
+В ней есть две внешние зависимости, это Rest Api, доступный пользователю
+и подключение к базе данных InfluxDb.
+Для реализации Rest Api мне понадобится веб-сервер, а для InfluxDb — библиотека интеграции.
+В них мне предстоит разобраться, сегодня я расскажу об этом.&lt;/p&gt;
+
+&lt;p&gt;Я буду объяснять в медленном темпе, по шагам.
+Буду переходить от эксперементов к архитектуре постепенно.
+И в этой статье расскажу только про создание, подключени зависимостей и конфигурацию логирования.&lt;/p&gt;
+
+&lt;h2 id=&#34;создание-проекта:63cd773274a994446b1bdb9adec3c264&#34;&gt;Создание проекта&lt;/h2&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/my.dynamica/tree/ae73c87718d2deb113264930c6105ca2729ea96e&#34;&gt;Ревизия на гитхабе&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;p&gt;Я использую &lt;a href=&#34;https://www.jetbrains.com/idea/index.html&#34;&gt;IntelliJ Idea&lt;/a&gt;, обычно последней версии &lt;a href=&#34;https://confluence.jetbrains.com/display/IDEADEV/EAP&#34;&gt;EAP&lt;/a&gt;.
+Поэтому создание проекта буду рассказывать на её примере.
+IDE просто автоматизирует, создание файлов и папок, так что конечный результат
+не будет отличаться от сделанного, например, в виме.&lt;/p&gt;
+
+&lt;h3 id=&#34;конфигурация-sbt:63cd773274a994446b1bdb9adec3c264&#34;&gt;Конфигурация sbt&lt;/h3&gt;
+
+&lt;p&gt;Я создал в идее новый sbt-проект, дождался, пока всё проинициализируется.
+&lt;a href=&#34;http://www.scala-sbt.org/&#34;&gt;Sbt&lt;/a&gt; — это аналог мавена для Scala, он загружает зависимости и собирает проект.
+У Sbt есть два типа конфигурации: sbt-файлы и scala-файлы, модульный проект можно создать только с помощью вторых.
+Но сейчас, не буду усложнять, потому что по дефолту создаётся sbt-конфигурация.
+Я добавил зависимости в этот файл &lt;code&gt;build.sbt&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/my.dynamica/blob/ae73c87718d2deb113264930c6105ca2729ea96e/build.sbt&#34;&gt;На гитхабе&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;name := &amp;quot;dynamica&amp;quot;
+
+version := &amp;quot;1.0&amp;quot;
+
+scalaVersion := &amp;quot;2.11.8&amp;quot;
+
+libraryDependencies ++= {
+  val akkaV       = &amp;quot;2.4.6&amp;quot;
+  val scalaTestV  = &amp;quot;2.2.5&amp;quot;
+  Seq(
+    &amp;quot;com.typesafe.akka&amp;quot;           %% &amp;quot;akka-actor&amp;quot;                           % akkaV,
+    &amp;quot;com.typesafe.akka&amp;quot;           %% &amp;quot;akka-http-experimental&amp;quot;               % akkaV,
+    &amp;quot;com.paulgoldbaum&amp;quot;            %% &amp;quot;scala-influxdb-client&amp;quot;                % &amp;quot;0.4.5&amp;quot;,
+    &amp;quot;ch.qos.logback&amp;quot;              % &amp;quot;logback-classic&amp;quot;                       % &amp;quot;1.1.3&amp;quot;,
+    &amp;quot;com.typesafe.scala-logging&amp;quot;  %% &amp;quot;scala-logging&amp;quot;                        % &amp;quot;3.1.0&amp;quot;
+  )
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Я добавил зависимость от &lt;code&gt;akka&lt;/code&gt; для создания акторов.
+Добавил зависимость от &lt;code&gt;akka-http-experimental&lt;/code&gt; для создания веб-сервера.
+В акка есть стабильная версия &lt;code&gt;akka-http-core&lt;/code&gt;, но в ней отсутствует Routing DSL, по крайней мере на момент последней доступной версии.
+Добавил зависимость от &lt;code&gt;scala-influxdb-client&lt;/code&gt; для того, чтобы иметь интеграцию с InfluxDb.
+Добавил зависимости &lt;code&gt;logback-classic&lt;/code&gt; и &lt;code&gt;scala-logging&lt;/code&gt; для того, чтобы иметь возможность логировать запросы.&lt;/p&gt;
+
+&lt;h3 id=&#34;конфигурация-логирования-через-logback:63cd773274a994446b1bdb9adec3c264&#34;&gt;Конфигурация логирования через logback&lt;/h3&gt;
+
+&lt;p&gt;Кроме этого, я в папке &lt;code&gt;src/main/resources&lt;/code&gt; добавил настройки для логирования в файл &lt;code&gt;logback.xml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/my.dynamica/blob/ae73c87718d2deb113264930c6105ca2729ea96e/src/main/resources/logback.xml&#34;&gt;На гитхабе&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;configuration scan=&amp;quot;true&amp;quot; scanPeriod=&amp;quot;10 seconds&amp;quot;&amp;gt;
+    &amp;lt;appender name=&amp;quot;STDOUT&amp;quot; class=&amp;quot;ch.qos.logback.core.ConsoleAppender&amp;quot;&amp;gt;
+        &amp;lt;encoder&amp;gt;
+            &amp;lt;pattern&amp;gt;
+                %d{HH:mm:ss.SSS} %-5level [%thread] %logger{128} - %msg%n
+            &amp;lt;/pattern&amp;gt;
+        &amp;lt;/encoder&amp;gt;
+    &amp;lt;/appender&amp;gt;
+
+    &amp;lt;root level=&amp;quot;DEBUG&amp;quot;&amp;gt;
+        &amp;lt;appender-ref ref=&amp;quot;STDOUT&amp;quot; /&amp;gt;
+    &amp;lt;/root&amp;gt;
+&amp;lt;/configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;С конфигурацией пока закончили. В этот момент, в проекте не должно быть ошибок
+и sbt должен был скачать все зависимости.&lt;/p&gt;
+
+&lt;h3 id=&#34;проверка-работоспособности:63cd773274a994446b1bdb9adec3c264&#34;&gt;Проверка работоспособности&lt;/h3&gt;
+
+&lt;p&gt;Проверим, что всё работает правильно, для этого создадим в пакете my.dynamica
+файл Main со следующим содержанием:&lt;/p&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/my.dynamica/blob/ae73c87718d2deb113264930c6105ca2729ea96e/src/main/scala/my/dynamica/Main.scala&#34;&gt;На гитхабе&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package my.dynamica
+
+import com.typesafe.scalalogging.StrictLogging
+
+object Main extends App with StrictLogging {
+  logger.info(&amp;quot;I&#39;m ready. World, hold on!&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;В результате должно появиться сообщение в логах, если всё правильно.
+Если сообщение появилось — зависимости подтянулись, использовали логер из подключеных пакетов.&lt;/p&gt;
+
+&lt;h3 id=&#34;дальнейшая-работа-над-проектом:63cd773274a994446b1bdb9adec3c264&#34;&gt;Дальнейшая работа над проектом&lt;/h3&gt;
+
+&lt;p&gt;Я буду публиковать дальнейшие шаги работы над проектом в описании к комитам &lt;a href=&#34;https://github.com/eliseealex/my.dynamica/commits/master&#34;&gt;на
+гитхабе&lt;/a&gt;.
+В блоге буду публиковать только важные моменты архитектурные моменты
+или наблюдения.&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;factoid-bottom factoid&#34;&gt;
+  &lt;p&gt;Эта статья будет дополнена.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Полезняшки</title>
+      <link>http://eliseealex.me/poleznyashki/</link>
+      <pubDate>Fri, 13 May 2016 21:45:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/poleznyashki/</guid>
+      <description>&lt;p&gt;Информация:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://youtu.be/MQ7U_nxHeYo?t=26m39s&#34;&gt;как писать сопроводительное письмо при устройстве на работу&lt;/a&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Автоматизация работы:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.alfredapp.com/&#34;&gt;Альфред для mac os x&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/voldmar/alfred-typograf&#34;&gt;Типограф лебедева для Альфреда&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://eliseealex.me/blog/first-analytic/#шаблон-статьи:26bc0f213fee00a2a80679d0769aa1e4&#34;&gt;Сниппет для создания текста&lt;/a&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Аудитория, цели и задачи. Конспект вебинара</title>
+      <link>http://eliseealex.me/text/goal-webinar/</link>
+      <pubDate>Fri, 13 May 2016 21:05:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/text/goal-webinar/</guid>
+      <description>
+
+&lt;p&gt;Сегодня я начинаю писать серию статей о тексте.
+Я расскажу вам про упражнение, которое сделает текст полезнее.
+Это упражнение из вебинара основателя &lt;a href=&#34;https://glvrd.ru/&#34;&gt;сервиса Главреда&lt;/a&gt; &lt;a href=&#34;http://maximilyahov.ru/&#34;&gt;Максима Ильяхова&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Я давно слежу за работами Максима, ещё со времён, когда я учился UX в школе стажёров Digital Design.
+Поступление в эту школу было безумным поступком, я — программист и ничего не смыслю в дизайне.
+Я узнал много о том, как делать удобные инфопродукты.
+Я очень благодарен нашему преподавателю &lt;a href=&#34;http://ritov.ru/&#34;&gt;Алексею Рытову&lt;/a&gt; за занятия.
+Он показал нам &lt;a href=&#34;http://artgorbunov.ru/&#34;&gt;дизайн-бюро Артёма Горбунова&lt;/a&gt; и посоветовал прочитать все советы.
+С тех пор я читаю их регулярно. Там я и познакомился с идеями Максима Ильяхова.
+Я достаточно быстро вылетел из школы стажёров дигдеза из-за нехватки времени.
+Но любовь к удобному интерфейсу и хорошему тексту никуда не делась до сих пор, хотя прошло уже три года.&lt;/p&gt;
+
+&lt;p&gt;Недавно, я увидел, что Максим Ильяхов
+&lt;a href=&#34;https://www.youtube.com/channel/UCCXWs56n7d8-miTo6Q4IEQw&#34;&gt;на своём ютубе&lt;/a&gt;
+выкладывает вебинары со школы редакторов.
+Уже посмотрел парочку видео и теперь добрался
+&lt;a href=&#34;https://youtu.be/MQ7U_nxHeYo?t=26m48s&#34;&gt;до первого вэбинара&lt;/a&gt;.
+Я его долго откладывал, потому что хотел сразу применить знания на практике.&lt;/p&gt;
+
+&lt;p&gt;Максим предлагает стажёрам сделать конспект вэбинара и написать текст о компании.
+Но у меня плохая память и я не хочу пересматривать вебинар и пасть конспект слово в слово.
+Я буду соединять идеи с другими, близкими к ним, и добавлять свои предположения.&lt;/p&gt;
+
+&lt;h2 id=&#34;теория:0bb0751be1afab8c080632934f8d23c4&#34;&gt;Теория&lt;/h2&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;strong&gt;Подробнее:&lt;/strong&gt;&lt;br&gt;
+  &lt;a href=&#34;https://www.youtube.com/channel/UCCXWs56n7d8-miTo6Q4IEQw&#34;&gt;Вебинары Максима Ильяхова&lt;/a&gt;;
+  &lt;br&gt;&lt;br&gt;
+  &lt;a href=&#34;http://maximilyahov.ru/blog/tags/tekst-o-sebe/&#34;&gt;Текст о&amp;nbsp;себе в&amp;nbsp;блоге Максима Ильяхова&lt;/a&gt;;
+  &lt;br&gt;&lt;br&gt;
+  &lt;a href=&#34;http://artgorbunov.ru/bb/soviet/ilyahov/&#34;&gt;Советы Максима в&amp;nbsp;дизайн-бюро Артёма Горбунова&lt;/a&gt;;
+  &lt;br&gt;&lt;br&gt;
+  Глава про сторителлинг в&amp;nbsp;книжке Алексея Каптерева «Мастерство презентаций»;
+  &lt;br&gt;&lt;br&gt;
+  &lt;a href=&#34;http://artgorbunov.ru/school/editors&#34;&gt;Школа редакторов&lt;/a&gt;.
+&lt;/div&gt;
+
+&lt;p&gt;Люди, которые пишут текст для людей, хотят что-то донести. Это является целью
+текста.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Цель должна быть более амбициозной.&lt;/strong&gt;
+При выборе цели, лучше не ограничиваться желанием донести информацию.
+Хорошей целью будет изменить людей, помочь им решить проблему или совершить действие.
+Написание текста без цели, по случайности, может иметь негативный эффект.
+Вы можете оставить читателя равнодушным или испортить отношения с ним.
+Поэтому хорошему тексту нужна цель.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Цели будет мало.&lt;/strong&gt;
+Нужно знать аудиторию и предпринимать действия для достижения цели.
+Аудитория нужна, чтобы понять читателя и чтобы показать, что вы можете помочь.
+Задачи нужны как шаги по достижению цели.
+Они должны говорить о том, что нужно показать аудитории.
+При составлении задач нужно думать, как решить проблемы аудитории и какие могут возникнуть проблемы во время общения.
+Также есть базовые вещи, о которых нельзя забывать никогда: представиться, рассказать о полезном действии и в конце оставить призыв к действию.
+Эту структуру лучше записать и первое время пользоваться ей постоянно. Чем я и займусь на практической части.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Целей может быть много. Они могут быть для разной аудитории.&lt;/strong&gt;
+Хорошим примером будет сопроводительное письмо или резюме при устройстве на работу.
+Оно проходит, по крайней мере, два этапа: рекрутер и руководитель отдела.
+Это две разные аудитории. У них разные цели, и они хотят увидеть в резюме разную информацию.
+Если не подумать об этих людях, может получиться шаблонное резюме.
+Оно не устроит ни руководителя отдела, ни рекрутера.
+Но, подумав об аудитории, о целях и задачах, можно уместить информацию для разной аудитории по соседству и успешно пройти оба фильтра перед интервью.
+&lt;em&gt;Я пересмотрю этот вэбинар, перед тем как искать новую работу.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Первое предложение абзаца должно быть вводным, а последнее — обобщающим.&lt;/strong&gt;
+На этом правиле можно построить скелет текста в информационном стиле.
+О том, как обвесить его мясом, Максим рассказывает &lt;a href=&#34;http://maximilyahov.ru/blog/tags/tekst-o-sebe/&#34;&gt;в своём блоге&lt;/a&gt;.
+Поэтому хороший текст можно читать по диагонали, прочитывая только первое и последнее предложение абзаца.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Если речь заходит о критике или негативных эмоциях, нужно быть осторожным.&lt;/strong&gt;
+Лучше дать право на нет.
+Лучше признать неуверенность в своём утверждении и попросить совета.
+Лучше спрашивать, чем обвинять.&lt;/p&gt;
+
+&lt;h2 id=&#34;практика:0bb0751be1afab8c080632934f8d23c4&#34;&gt;Практика&lt;/h2&gt;
+
+&lt;p&gt;В &lt;a href=&#34;https://www.youtube.com/watch?v=SboQwSQ6p8k&#34;&gt;вебинаре Максима Ильяхова о вёрстке статей с помощью бутстрапа&lt;/a&gt; я узнал об &lt;a href=&#34;https://www.alfredapp.com/&#34;&gt;Альфреде&lt;/a&gt;.
+Он позволяет автоматизировать действия на маке.
+Я недавно установил его к себе и загорелся идеей простой автоматизации действий.
+Максим использовал сниппеты для сохранения элементов вёрстки, а я буду использовать сниппеты для хранения структуры статьи.
+Сниппет — это фраза или горячая клавиша, по которой будет вставлен текст, сохранённый когда-то давно в буфер обмена.&lt;/p&gt;
+
+&lt;p&gt;Чтобы не забыть использовать эту структуру в ближайших статьях я внесу её в шаблон для создания статьи.
+Писать статью по шаблону мне всегда казалось глупым и неловким.
+Но, я заметил, что если я не начинаю применять эти правила явно, я забываю о них.&lt;/p&gt;
+
+&lt;h3 id=&#34;шаблон-статьи:0bb0751be1afab8c080632934f8d23c4&#34;&gt;Шаблон статьи&lt;/h3&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Кто является аудиторией статьи? (можно перечислить несколько вариантов и расписать цель для каждого из них)&lt;/p&gt;
+
+&lt;p&gt;Какова цель написания этой статьи?&lt;/p&gt;
+
+&lt;p&gt;Что я хочу от читателя из этой аудитории?&lt;/p&gt;
+
+&lt;p&gt;Какие будут задачи для этого читателя?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Представиться, очень кратко рассказать о себе;&lt;/li&gt;
+&lt;li&gt;Описать полезное действие от статьи;&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;li&gt;???&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;li&gt;Оставить призыв к действию;&lt;/li&gt;
+&lt;li&gt;Оставить обратную связь.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;повторение-мать-учения:0bb0751be1afab8c080632934f8d23c4&#34;&gt;Повторение — мать учения&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Для написания статьи нужны цель, аудитория и задачи;&lt;/li&gt;
+&lt;li&gt;Цель должна быть амбициозной;&lt;/li&gt;
+&lt;li&gt;Цель связана с аудиторией и воплощается в задачах;&lt;/li&gt;
+&lt;li&gt;Необязательно иметь только одну цель или аудиторию, их может быть много;&lt;/li&gt;
+&lt;li&gt;Поначалу — описание всего этого кажется глупым и долгим. Но оно того стоит!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+  &lt;strong&gt;Следующая статья уже готовится.&lt;/strong&gt;&lt;br&gt;
+  Это будет текст о себе, который заменит стартовую страницу этого блога.
+  &lt;br&gt;
+  &lt;br&gt;
+  Пока что вы можете прочитать &lt;a href=&#34;http://eliseealex.me/lispress&#34;&gt;О создании этого блога&lt;/a&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Дорожная карта первого проекта по улучшению личного блога</title>
+      <link>http://eliseealex.me/eliseealex-1/</link>
+      <pubDate>Fri, 13 May 2016 21:05:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/eliseealex-1/</guid>
+      <description>&lt;p&gt;Это вторая итерация создания этого блога.
+Изначально, я хотел, чтобы этот блог был для меня и людей, которые разделяют мои взгляды.
+Я &lt;a href=&#34;http://eliseealex.me/lispress&#34;&gt;создавал его под другим именем&lt;/a&gt;, писал от имени команды, но я поторопился с этим.
+Теперь у меня другая цель — найти единомышленников.
+Тех, кто любит свою работу, развивается и создаёт проекты, которые делают мир лучше.&lt;/p&gt;
+
+&lt;p&gt;В результате &lt;a href=&#34;http://eliseealex.me/lispress&#34;&gt;неудачного прошлого эксперимента&lt;/a&gt; у меня появился блог,
+который работает на &lt;a href=&#34;http://eliseealex.me/lispress/2.2-hugo&#34;&gt;статическом генераторе сайтов hugo&lt;/a&gt;.
+В hugo мало компонентов и шаблонов, поэтому все решения о том, как будет
+выглядить сайт приходится принимать самостоятельно.
+Это прекрасно. Я могу воплотить все элементы, которые мне нравятся.&lt;/p&gt;
+
+&lt;p&gt;В рамках этого эксперимента я буду развивать навигацию этого блога, создавать
+элементы вёрстки и добавлять интеграцию с внешними сервисами.
+Я хочу подготовиться к следующему эксперименту, в котором я начну проверять свои гипотезы с помощью статистики.
+Для этого, я создаю сервис для &lt;a href=&#34;http://eliseealex.me/dynamica-1&#34;&gt;анализа данных о поведении пользователей&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Я буду изменять блог, чтобы упростить достижение своей цели:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Чтобы люди, которые хотели попробовать то, о чём я рассказываю на практике, могли воспользоваться этим;&lt;/li&gt;
+&lt;li&gt;Чтобы у тех людей, которые хотят мне написать или что-то обсудить не возникало проблем с этим;&lt;/li&gt;
+&lt;li&gt;Буду оставлять призыв к действию;&lt;/li&gt;
+&lt;li&gt;Перепишу главную страницу, чтобы она помогала мне в этой цели.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Akka на практике, первые шаги</title>
+      <link>http://eliseealex.me/dynamica-1/2-requirements/</link>
+      <pubDate>Wed, 27 Apr 2016 20:34:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/dynamica-1/2-requirements/</guid>
+      <description>
+
+&lt;p&gt;В &lt;a href=&#34;http://eliseealex.me/dynamica-1/1-akka/&#34;&gt;прошлой статье&lt;/a&gt; я рассказал об общих идея акки.&lt;/p&gt;
+
+&lt;p&gt;В этой статье я покажу на практике, как устроены акторы и как они взаимодействуют.
+Я расскажу о том, как создаются акторы, как они общаются между собой и том, как нужно обрабатывать ошибки.&lt;/p&gt;
+
+&lt;p&gt;Напомню, что актор — это абстракция, которая позволяет использовать изменяющиеся ресурсы при обработке поступивших задач, не задумываясь о многопоточности. Это возможно из-за того, что все операции происходят последовательно в рамках одного псевдопотока.&lt;/p&gt;
+
+&lt;h4 id=&#34;mailbox:a83e134770bff64237826b69845b3034&#34;&gt;Mailbox&lt;/h4&gt;
+
+&lt;p&gt;Задачи, которые обрабатывает актор — это сообщения, полученные от других акторов. В стандартном поведении акки, актор достаёт сообщения из специального списка (почтового ящика) и обрабатывает их.&lt;/p&gt;
+
+&lt;p&gt;Кладутся эти сообщения путём передачи объектов актору по ссылке (&lt;code&gt;ActorRef&lt;/code&gt; или &lt;code&gt;ActorSelection&lt;/code&gt;) и делается это примерно так:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;actor ! message
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;В результате этой команды, в почтовом ящике актора, который лежит по ссылке окажется сообщение .
+Как только сообщение попадёт в почтовый ящик, исполнение этой команды закончится и вызывающий актор продолжит работу.
+В этом случае говорят, что актор не блокируется (если бы он ожидал исполнения команды, он оказался заблокированым и не мог выполнять другие задачи в это время).
+Но это также значит, что актор не получает результата исполнения этой команды (вообще, он может его получить в виде ответного сообщения или через другие скаловские примитивы).&lt;/p&gt;
+
+&lt;h4 id=&#34;что-происходит-дальше-с-сообщением:a83e134770bff64237826b69845b3034&#34;&gt;Что происходит дальше с сообщением?&lt;/h4&gt;
+
+&lt;p&gt;Основная логика актора сосредоточена в методе &lt;code&gt;recieve&lt;/code&gt;, в нём обрабатываются сообщения.
+Сообщение в этот метод передаёт система акторов.
+Акка даёт &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/message-delivery-reliability.html&#34;&gt;гарантии, в каком порядке будут доставлены сообщения&lt;/a&gt;,
+но задумываться об этом стоит только в том случае, если без этого не обойтись.&lt;/p&gt;
+
+&lt;p&gt;На обработку сообщения лучше посмотреть на примере:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import akka.actor.Actor
+import akka.actor.Props
+import akka.event.Logging
+
+class MyActor extends Actor {
+  val log = Logging(context.system, this)
+
+  def receive = {
+    case &amp;quot;test&amp;quot; =&amp;gt; log.info(&amp;quot;received test&amp;quot;)
+    case myObject: MyObject =&amp;gt; log.info(&amp;quot;received MyObject&amp;quot;)
+    case MyClass(x, _) =&amp;gt; log.info(s&amp;quot;received an instance of MyClass with first field [$x]&amp;quot;)
+    case x: Any =&amp;gt; log.warn(s&amp;quot;received unknown message: $x&amp;quot;)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;a href=&#34;http://doc.akka.io/docs/akka/current/scala/actors.html&#34;&gt;Больше примеров&lt;/a&gt;&lt;br&gt;&lt;br&gt;
+  &lt;a href=&#34;http://docs.scala-lang.org/tutorials/tour/pattern-matching.html&#34;&gt;О Pattern Matching&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Мы создали актор и научили принимать его четыре вида сообщений. Результаты приёма мы записываем в логи.
+Для обработки сообщений используется Pattern Matching, эта конструкция, похожа на &lt;code&gt;switch...case&lt;/code&gt;, но более универсальна.
+В частности, её можно использовать для определения типа объекта, как во второй конструкции Case
+или даже для определения типа объекта и получения значения полей объекта, как показано на третьей строчке.&lt;/p&gt;
+
+&lt;h4 id=&#34;как-получить-ссылки-на-другие-акторы:a83e134770bff64237826b69845b3034&#34;&gt;Как получить ссылки на другие акторы?&lt;/h4&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/addressing.html&#34;&gt;Об адресации акторов в документации&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Для отправки сообщения нужна ссылка на актор, который будет его обрабатывать.
+Есть два вида ссылок, о которых я уже упомянул: &lt;code&gt;ActorSelection&lt;/code&gt; и &lt;code&gt;ActorRef&lt;/code&gt;.
+Их отличие в том, что &lt;code&gt;ActorSelection&lt;/code&gt; может указывать сразу на несколько акторов
+и доставляет сообщения сразу в несколько почтовых ящиков, а &lt;code&gt;ActorRef&lt;/code&gt; — это ссылка
+на один конкретный актор.&lt;/p&gt;
+
+&lt;p&gt;Получить &lt;code&gt;ActorSelection&lt;/code&gt; можно, указав путь до актора. Это может быть абсолютный или относительный путь, в этом пути могут содержаться wildcard&amp;rsquo;ы:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;context.actorSelection(&amp;quot;../brother&amp;quot;) ! msg
+context.actorSelection(&amp;quot;/user/serviceA&amp;quot;) ! msg
+context.actorSelection(&amp;quot;../*&amp;quot;) ! msg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Относительный путь имеет отношение к иерархии акторов, о ней мы поговорим чуть ниже.&lt;/p&gt;
+
+&lt;p&gt;Ссылку &lt;code&gt;ActorRef&lt;/code&gt; получить проще. У любого актора есть родитель и на него можно получить ссылку.
+Эта ссылка прикладывается к каждому сообщения и можно получить такую ссылку вызвав метод &lt;code&gt;sender()&lt;/code&gt;.
+Эту ссылку можно передавать в конструкторе при создании актора.
+И, наконец, эта ссылка получается при создании актора:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;val myActor: ActorRef = Actor.of(Props.create(MyActor.class))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;summary&#34;&gt;
+  &lt;h4&gt;&lt;code&gt;actorOf&lt;/code&gt; vs &lt;code&gt;actorSelection&lt;/code&gt;&lt;/h4&gt;
+  &lt;p&gt;&lt;code&gt;actorOf&lt;/code&gt; создаёт актор, а &lt;code&gt;actorSelection&lt;/code&gt; ищет.&lt;/p&gt;
+  &lt;p&gt;На деле, чаще используется &lt;code&gt;ActorRef&lt;/code&gt;, он позволяет лучше убедиться
+  в том, что вызывается правильный актор. Его можно передать в конструктор
+  или получить после создания нового актора.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;кто-должен-создавать-акторы:a83e134770bff64237826b69845b3034&#34;&gt;Кто должен создавать акторы?&lt;/h4&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/supervision.html&#34;&gt;О родительстве акторов и мониторинге здоровья&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Актор, который был создан внутри актора становится его ребёнком. Актор-родитель становится ответственным за обработку ошибок ребёнка
+и может либо обработать ошибку самостоятельно, либо делегировать его своему родителю.
+Один из принципов, лежащий в основе акторов, — Let It Crash связан именно с этим явлением.
+В иерархии акторов должен быть какой-то родитель, который решит, что делать со своими детьми в случае ошибки.
+Зная это, можно не задумываться об ошибках на нижних уровнях и не писать «defensive code».&lt;/p&gt;
+
+&lt;p&gt;В случае ошибки, случившейся в дочернем акторе, родитель может перезагрузить актор
+с тем же состоянием, сбросив состояние, сказать актору обрабатывать следующее сообщение
+либо отключить этот актор. Подробнее об этих правилах лучше прочитать
+&lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/supervision.html#What_Supervision_Means&#34;&gt;в официальной документации&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;summary&#34;&gt;
+  &lt;p&gt;В первую очередь иерархия — способ показать, кто должен обрабатывать ошибки.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;практика:a83e134770bff64237826b69845b3034&#34;&gt;Практика&lt;/h4&gt;
+
+&lt;p&gt;Учитывая эти особенности акки, можно построить первый набросок архитектуры.
+Для начала рассмотрим системную архитектуру:&lt;/p&gt;
+
+&lt;div style=&#34;text-align: center&#34;&gt;
+  &lt;img src=&#34;http://eliseealex.me/image/dy-1-2/components.png&#34; style=&#34;max-width: 450px;&#34; title=&#34;Диаграмма компонентов сервиса аналитики dynamica&#34; alt=&#34;Диаграмма компонентов сервиса аналитики dynamica&#34;/&gt;
+&lt;/div&gt;
+
+&lt;p&gt;На этой диаграмме показана акторная система с тремя основными компонентами.
+Я специально не стал называть их акторами, потому что может понадобиться большее количество акторов.
+На этом этапе важно понять, что есть три верхних точки иерархии системы:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;интеграция с InfluxDb и абстрагирование базы данных;&lt;/li&gt;
+&lt;li&gt;бизнес-логика, связанная с подготовкой статистики для пользователей;&lt;/li&gt;
+&lt;li&gt;веб-сервер, который предоставляет Rest Api клиентам, принимает запросы
+и подготавливает ответы клиентам.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;И для этих трёх компонентов я создам три актора верхнего уровня.
+Они будут обрабатывать ошибки и заниматься конфигурированием.
+А в акторах нижнего уровня будет содержаться вся бизнес-логика.&lt;/p&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+    В следующей статье [создадим и запустим проект на Scala](/dynamica-1/3-configuration).
+    &lt;br&gt;
+    &lt;br&gt;
+    Пишите свои пожелания на &lt;a href=&#34;mailto:eliseealex@gmail.com?Subject=%d0%91%d0%bb%d0%be%d0%b3%20%d0%90%d0%bb%d0%b5%d0%ba%d1%81%d0%b0%d0%bd%d0%b4%d1%80%d0%b0%20%d0%95%d0%bb%d0%b8%d1%81%d0%b5%d0%b5%d0%b2%d0%b0&#34; rel=&#34;nofollow&#34;&gt;eliseealex@gmail.com&lt;/a&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Первый взгляд на Akka</title>
+      <link>http://eliseealex.me/dynamica-1/1-akka/</link>
+      <pubDate>Tue, 26 Apr 2016 21:24:18 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/dynamica-1/1-akka/</guid>
+      <description>
+
+&lt;p&gt;Начну этот проект с обзора акки.
+Она будет связующим звеном между компонентами нашего сервиса аналитики.
+Но помимо транспорта, она даёт ещё несколько преимуществ, которые хорошо
+дополняют язык программирования Scala.
+Вооружившись документацией я начну с обзора этих преимуществ,
+в следующей статье расскажу о них подробнее, как они реализованы и дальше буду
+ими активно пользоваться.&lt;/p&gt;
+
+&lt;h4 id=&#34;scala-и-akka:37f564f89403327138c31aee10afd316&#34;&gt;Scala и Akka&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;В Scala преобладает парадигма функционального программирования (&lt;a href=&#34;https://www.coursera.org/course/progfun&#34;&gt;курс от создателя скалы&lt;/a&gt;). Она накладывает ограничение немутабельности на код. Это значит, что объекты не должны менять своё содержимое после создания. Если нужно изменить состояние объекта, создаём новый объект и дальше использовуем его.&lt;/li&gt;
+&lt;li&gt;В реальной жизни, это ограничение слишком строгое. Реальные программы работают с данными, которые постоянно изменяются. Они зависят от внешних источников информации и в наших процессах присутствует «память».&lt;/li&gt;
+&lt;li&gt;Эта «реальность» несёт за собой много проблем. Из-за них в обычных многопоточных программах появляется &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/terminology.html#Deadlock_vs__Starvation_vs__Live-lock&#34;&gt;большое количество ошибок&lt;/a&gt;.
+Но этой реальности не избежать.
+Поэтому в функциональных языках программирования (эрланг, скала) появились акторы.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;что-такое-актор:37f564f89403327138c31aee10afd316&#34;&gt;Что такое актор?&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Актор — это абстракция, которую легче всего представить как «однопоточное» приложение, которое выполняет список задач.
+На практике, это обозначает, что внутри актора можно использовать изменяющееся состояние и почти что забыть о многопточности.
+Однопоточность взята в кавычки, потому что актор не занимает поток JVM полностью и вообще, он может перемещаться между разными потоками.
+Подробнее об этом можно узнать &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/actors.html&#34;&gt;из описания акторов в документации&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;В однопоточном приложении могут одновременно существовать тысячи таких акторов.&lt;/li&gt;
+&lt;li&gt;Актор может иметь изменяемое состояние, независимое от внешнего мира. И пользоваться им, не заботясь о проблемах, которые &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/terminology.html&#34;&gt;обычно присущи многопоточным системам&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Тем не менее, такой подход требует использование &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/actor-systems.html#Actor_Best_Practices&#34;&gt;лучших практик&lt;/a&gt;.
+Если использовать акторы бездумно, то они не дадут никакой пользы.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;особенности-работы-с-акторами-выдержки-из-лучших-практик:37f564f89403327138c31aee10afd316&#34;&gt;Особенности работы с акторами (выдержки из лучших практик)&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;В основе акторов лежит философия «let it crash». Это значит, что не стоит писать обработку ошибок там же, где они возникают. Ошибки нужно обрабатывать на том уровне бизнес логики, на котором известно, что с ними делать. Это может быть реализовано с помощью &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/actor-systems.html#Hierarchical_Structure&#34;&gt;иерархической структуры акторов&lt;/a&gt;. Можно забыть о бесконечных траях и кетчах.&lt;/li&gt;
+&lt;li&gt;Блокирующие ресурсы (база данных, файлы на жёстком диске, синхронные http запросы и т.д.) требуют внимательного управления. Нельзя бездумно вызывать их в акторе (актор заблокируется и все запросы встанут в очередь), так же нельзя бездумно создавать футуры и исполнять запросы (их может стать слишком много и на сервере кончится память). Для этого есть &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/actor-systems.html#Blocking_Needs_Careful_Management&#34;&gt;особые подходы&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Изменяющееся состояние не должно выходить за рамки актора. Только немутабельные сообщения, не забываем, что это ФП. Не стоит забывать, что состояние можно передать случайно, если передавать в сообщении поведение (с помощью замыканий).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+    &lt;a href=&#34;http://eliseealex.me/dynamica-1/2-requirements&#34;&gt;Следующая статья об Akka на практике&lt;/a&gt;&lt;br&gt;
+    &lt;br&gt;
+    Читайте &lt;a href=&#34;http://doc.akka.io/docs/akka/current/scala.html&#34;&gt;документацию акки.&lt;/a&gt;&lt;br&gt;
+    &lt;br&gt;
+    Пишите свои пожелания на &lt;a href=&#34;mailto:eliseealex@gmail.com?Subject=%d0%91%d0%bb%d0%be%d0%b3%20%d0%90%d0%bb%d0%b5%d0%ba%d1%81%d0%b0%d0%bd%d0%b4%d1%80%d0%b0%20%d0%95%d0%bb%d0%b8%d1%81%d0%b5%d0%b5%d0%b2%d0%b0&#34; rel=&#34;nofollow&#34;&gt;eliseealex@gmail.com&lt;/a&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Дорожная карта первой версии проекта dynamica</title>
+      <link>http://eliseealex.me/dynamica-1/</link>
+      <pubDate>Tue, 26 Apr 2016 08:00:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/dynamica-1/</guid>
+      <description>
+
+&lt;p&gt;Я уже сделал попытку создания сервиса для аналитики на &lt;a href=&#34;http://eliseealex.me/hackday-41&#34;&gt;хакдее&lt;/a&gt;.
+Но я не довёл проект до конца, переоценил свои силы и взялся за слишком большую задачу.
+Время для работы над ошибками: я сделаю проект, который делает всё так, как я хочу, но у которого очень мало фич.
+А именно одна: сбор статистики количества просмотров страницы.
+Это будет MVP, в конце проекта я встрою его к себе на сайт.
+И в следующем проекте будут развивать этот продукт, улучшать его и начну решать проблемы.&lt;/p&gt;
+
+&lt;p&gt;Мне нравятся скала и акка, в их основе лежат классные идеи, но я пока не распробовал их на реальных проектах.
+Это мой шанс. Попробую развить этот проект и не буду голословным.&lt;/p&gt;
+
+&lt;p&gt;Ещё, эта серия статей связана с клубом разработки &lt;a href=&#34;https://ifmo.su&#34;&gt;CodeX&lt;/a&gt;.
+Мне удалось пролобировать скалу для нового проекта.
+Эта статья будет простым введением в скалу.
+На основе опыта, который я получу в этом проекте я создам практический курс по
+анализу данных с помощью скалы и акки.&lt;/p&gt;
+
+&lt;h4 id=&#34;цель-проекта:d80d2513eef0c18c34a929ddab2ebd77&#34;&gt;Цель проекта&lt;/h4&gt;
+
+&lt;p&gt;Показать, чем могут быть полезны scala, akka и influxdb для анализа данных.&lt;/p&gt;
+
+&lt;h4 id=&#34;целевая-аудитория:d80d2513eef0c18c34a929ddab2ebd77&#34;&gt;Целевая аудитория&lt;/h4&gt;
+
+&lt;p&gt;Программисты, которым интересен анализ данных, которые хотят узнать, за что
+многие аналитики так любят скалу.&lt;/p&gt;
+
+&lt;h4 id=&#34;что-я-хочу-от-целевой-аудитории:d80d2513eef0c18c34a929ddab2ebd77&#34;&gt;Что я хочу от целевой аудитории?&lt;/h4&gt;
+
+&lt;p&gt;Хочу, чтобы читатели убедились, что анализ данных на Scala — это просто
+и применили знания на практике.&lt;/p&gt;
+
+&lt;h4 id=&#34;как-я-этого-добьюсь:d80d2513eef0c18c34a929ddab2ebd77&#34;&gt;Как я этого добьюсь?&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Я сделаю краткий обзор основных аспектов языка и библиотеки akka.&lt;/li&gt;
+&lt;li&gt;Расскажу, как я учёл рекомендованные практики при создании своего проекта.&lt;/li&gt;
+&lt;li&gt;Оставлю свои контакты и попрошу писать, чтобы получить совет.&lt;/li&gt;
+&lt;li&gt;Оставлю призыв к действию, направленный на развитие моего проекта. К концу
+серии статей, он станет понятным читателю и работа над ним позволит закрепить
+знания на практике.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;что-будет-реализовано-в-рамках-проекта:d80d2513eef0c18c34a929ddab2ebd77&#34;&gt;Что будет реализовано в рамках проекта?&lt;/h4&gt;
+
+&lt;p&gt;Я запилю сервис, который будет:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;принимать запросы о просмотре страниц в формате json;&lt;/li&gt;
+&lt;li&gt;записывать данные в InfluxDb (асинхронно, пакетами по несколько точек);&lt;/li&gt;
+&lt;li&gt;по запросу отдавать количество просмотров страницы.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Статьи, посвящённые развитию этого проекта справа выше.
+И да, &lt;a href=&#34;mailto:eliseealex@gmail.com&#34; rel=&#34;nofollow&#34;&gt;пишите мне&lt;/a&gt; и присоединяйтесь к работе над этим и следующими проектами.
+Если не уверены, что сможете помочь, всё равно пишите, может смогу помочь я.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Итоги эксперимента</title>
+      <link>http://eliseealex.me/lispress/4-happy-end/</link>
+      <pubDate>Mon, 25 Apr 2016 23:06:30 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/lispress/4-happy-end/</guid>
+      <description>&lt;p&gt;Я очень гордился собой, когда писал roadmap. Я всё ещё верил, что можно быстро создать и продвинуть большой сервис, у которого очень много классных особенностей. Я целился в солнце, но попал в луну и я счастлив. И обо всём по порядку.&lt;/p&gt;
+
+&lt;p&gt;До начала эксперимента я был ярым противником линейной структуры блога, а сейчас я использую её у себя на сайте. Что же случилось по середине?&lt;/p&gt;
+
+&lt;p&gt;Я плохо продумал концепцию блога и простой презентации работ не достаточно. Она может быть интересна людям, но для того, чтобы о ней узнали, нужно, чтобы у блога появились читатели. Для этого нужно заявить о себе. Для этого нужна история, нужны герои, организация — это не герой, герой это человек, поэтому у меня появился личный блог и я начал формировать своё &lt;em&gt;видение&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Я до сих пор считаю, что в проект нужно погружаться постепенно и для этого нужна иерархия. Тем не менее, иерархия не естественна для человека, он читает последовательно и ему нужна линейная структура, поэтому на &lt;a href=&#34;http://eliseealex.me&#34;&gt;главной странице&lt;/a&gt; моего нового блога я составил линейный рассказ о себе, который ведёт на верхние слои иерархии.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Итоги:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Я не проверил &lt;a href=&#34;http://eliseealex.me/lispress/1-hypothesis&#34;&gt;гипотезы&lt;/a&gt;. Проблема в том, что я не обозначил чётких идей, из-за которых я мог бы учавствовать в конфликтах;&lt;/li&gt;
+&lt;li&gt;Я нашёл &lt;a href=&#34;http://eliseealex.me/lispress/2-blog-engine/&#34;&gt;платформу для блогов&lt;/a&gt;, дополняющую мои идеи;&lt;/li&gt;
+&lt;li&gt;Я понял, как &lt;a href=&#34;http://eliseealex.me/lispress/2-blog-engine/#нужна-ли-блогам-гибкость:c96dc839c2d138b01046aff06e324f62&#34;&gt;применить микросервисную архитектуру&lt;/a&gt; в блогах;&lt;/li&gt;
+&lt;li&gt;Я нашёл подходящую структуру &lt;a href=&#34;http://eliseealex.me/lispress/3-main-design/&#34;&gt;для главной страницы&lt;/a&gt;, &lt;a href=&#34;http://eliseealex.me/lispress/2.2-hugo/&#34;&gt;реализовал прототип&lt;/a&gt; и отказался от него;&lt;/li&gt;
+&lt;li&gt;Я получил инвайт на &lt;a href=&#34;http://habrahabr.ru&#34;&gt;хабр&lt;/a&gt; и решил использовать внешние ресурсы для продвижения свои идей.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Я не забросил создание проекта. Он превратился в личный блог и в идею о том, что его нужно создавать на английском, писать о созданных продуктах и активно продвигать.&lt;/p&gt;
+
+&lt;p&gt;Я уже исправился, начал писать на &lt;a href=&#34;http://habrahabr.ru&#34;&gt;хабр&lt;/a&gt; и сделал блог более персональным.&lt;/p&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+  Читайте дальше о проекте &lt;a href=&#34;http://eliseealex.me/dynamica-1&#34;&gt;dynamica&lt;/a&gt; для сбора статистика с сайта.
+  &lt;br&gt;&lt;br&gt;
+  Или о &lt;a href=&#34;http://eliseealex.me/text/goal-webinar&#34;&gt;правилах написания хорошего текста&lt;/a&gt;.
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Дизайн главной страницы</title>
+      <link>http://eliseealex.me/lispress/3-main-design/</link>
+      <pubDate>Wed, 30 Mar 2016 23:06:30 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/lispress/3-main-design/</guid>
+      <description>
+
+&lt;p&gt;В прошлых статьях я рассказывал, что делаю сайт, поделённый на рубрики. В них я в реальном времени рассказываю одну большую историю про то, как я работаю над отдельными проектами. Я рассказал про &lt;a href=&#34;http://eliseealex.me/lispress/1-hypothesis/&#34;&gt;гипотезы ценности и роста сайта&lt;/a&gt;, а так же &lt;a href=&#34;http://eliseealex.me/lispress/2-blog-engine/&#34;&gt;про запуск первой версии&lt;/a&gt; и &lt;a href=&#34;http://eliseealex.me/lispress/2.2-hugo/&#34;&gt;настройку среды для разработки с помощью hugo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;И теперь я расскажу про то, как я учился дизайну и искал вдохновение для создания главной страницы. Я не дизайнер, но я люблю удобные продукты, которыми приятно пользоваться, поэтому, если вам что-то не нравится или вы знаете, как что-то сделать лучше, пишите, я люблю критику. Twitter: @eliseealex или по почте: eliseealex@gmail.com.&lt;/p&gt;
+
+&lt;h2 id=&#34;теория:16976d4dabb7b5c48b6f170bee2225bf&#34;&gt;Теория&lt;/h2&gt;
+
+&lt;p&gt;В качестве источника я ограничусь советами бюро Артёма Горбунова. Позже, может быть, я расширю список источников и вынесу его в отдельную статью. Начнём с элементов вёрстки:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20140519/&#34;&gt;список элементов вёрстки и примеры&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20140616/&#34;&gt;заголовок&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20140630/&#34;&gt;текст&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20140707/&#34;&gt;иллюстрация&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20140714/&#34;&gt;элементы управления&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20140721/&#34;&gt;гиперссылка&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20140728/&#34;&gt;подпись&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Также имеет смысл посмотреть, как применяются эти же элементы стиля в &lt;a href=&#34;https://docs.google.com/document/d/1a0NkLK67sgFF5gRLdRvBg9XoM6omKhGWOg8GJfJrgWQ/edit&#34;&gt;системе главбух&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Дальше рассмотрим принцип модульности, это базовое правило, используемое в бюро:
+&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20140210/&#34;&gt;http://artgorbunov.ru/bb/soviet/20140210/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;С этим принципом связана серия статей «как собрать страницу из модулей»:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141013/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141013/&lt;/a&gt; — зачем нужна сетка;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141020/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141020/&lt;/a&gt; — страница без иллюстраций;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141027/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141027/&lt;/a&gt; — страница с иллюстрациями;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141103/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141103/&lt;/a&gt; — как сверстать текстовую страницу;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141110/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141110/&lt;/a&gt; — как сверстать главную страницу;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141117/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141117/&lt;/a&gt; — об ушках, цитатах и фактоидах.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ещё хотел бы выделить отдельные советы, которые показались интересными:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20140804/&#34;&gt;http://artgorbunov.ru/bb/soviet/20140804/&lt;/a&gt; — как верстать текстовые блоки;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20150517/&#34;&gt;http://artgorbunov.ru/bb/soviet/20150517/&lt;/a&gt; — как сделать вёрстку текста читаемой.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;В советах много ссылок друг на друга, и, если потратить ещё какое-то время на их изучение, можно увидеть примеры применения этих советов и получить более целостную картину.&lt;/p&gt;
+
+&lt;p&gt;Ещё есть подборка интересных книг в разделе «Системные требования» школы стажеров бюро Артёма Горбунова: &lt;a href=&#34;http://artgorbunov.ru/school&#34;&gt;http://artgorbunov.ru/school&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;практика:16976d4dabb7b5c48b6f170bee2225bf&#34;&gt;Практика&lt;/h2&gt;
+
+&lt;p&gt;Я читаю эти советы не первый раз, и очень хочется, чтобы они не забылись так быстро, как обычно, поэтому сразу перейду к навигации главной страницы и расскажу про свой замысел.&lt;/p&gt;
+
+&lt;p&gt;В совете о вёрстке главной страницы &lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141110/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141110/&lt;/a&gt; описаны четыре типа вёрстки. Главная страница в виде ленты — мне не подходит, об этом я говорил ещё в &lt;a href=&#34;https://lis.press/lispress/1-hypothesis/&#34;&gt;первой статье&lt;/a&gt;. Плитка и фоторама — больше подходят для галерей и маркетинговых сайтов. Остался только рубрикатор, и я это то, что нужно.&lt;/p&gt;
+
+&lt;p&gt;Рубрикатор поощряет использование разделов на сайте, то есть, он хорошо подойдёт, если нужно на одной странице рассказать про несколько проектов одновременно. Это как раз мой случай, я изначально планировал, что сайт будет состоять из отдельных рубрик, в каждой из которых будет раскрыта история одного проекта.&lt;/p&gt;
+
+&lt;h3 id=&#34;рубрика-эксперимент:16976d4dabb7b5c48b6f170bee2225bf&#34;&gt;Рубрика «Эксперимент»&lt;/h3&gt;
+
+&lt;p&gt;До этого момента я планировал только один раздел, поэтому начну с него. Те, кто читает мой эксперимент с самого начала, знают, что основная фишка блога — это рассказ о разработке проектов в реальном времени. Я понял, что для этого мне удобно будет использовать дорожную карту проекта, то есть с каждым экспериментом будет связана своя страница, на которой будут описаны условия эксперимента, технологии, сроки и для чего он проводится (чему я хочу научиться и какую проблему решить).&lt;/p&gt;
+
+&lt;p&gt;Я думаю, что для этого подойдёт горизонтальный блок с четырьмя колонками:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://eliseealex.me/image/lp-3/columns.png&#34; title=&#34;Columns wireframe&#34; &gt;&lt;/p&gt;
+
+&lt;p&gt;Выглядит классно, теперь можно удобно вывести последние шаги и показать, что работа идёт. В такой форме нет названия. Можно добавить заголовок сверху, но он не будет привлекать достаточно внимания.&lt;/p&gt;
+
+&lt;p&gt;Можно включить заголовок внутрь блока и уменьшить количество колонок:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://eliseealex.me/image/lp-3/columns_title.png&#34; title=&#34;Columns and title wireframe&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;Теперь есть заголовок, он привлекает достаточно внимания, и появилось место для ссылки на Roadmap под ним, такой подход мне нравится куда больше, теперь можно добавить данные и посмотреть, что получится:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://eliseealex.me/image/lp-3/columns_title_mock.png&#34; title=&#34;Columns and title mockup&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;Первая рубрика почти готова, осталось только продумать навигацию и встроить её на сайт.&lt;/p&gt;
+
+&lt;h3 id=&#34;как-это-сделать:16976d4dabb7b5c48b6f170bee2225bf&#34;&gt;Как это сделать?&lt;/h3&gt;
+
+&lt;p&gt;В этом мне очень поможет Hugo, у него простая модель структуры, аналогичная файловой системе: если я хочу, чтобы у меня статья была доступно по адресу &lt;code&gt;lis.press/project/1-first&lt;/code&gt; , то я создаю в папке &lt;code&gt;content/project&lt;/code&gt;  файл &lt;code&gt;1-first.md&lt;/code&gt; .&lt;/p&gt;
+
+&lt;p&gt;Дальше можно на главной странице с помощью запроса выбрать три последние статьи из этой папки:
+&lt;code&gt;{{ range first 3 (where .Data.Pages &amp;quot;Section&amp;quot; &amp;quot;project&amp;quot;) }}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Но с одной такой рубрикой сайт будет пустым и скучным, поэтому нужно ещё что-нибудь придумать.&lt;/p&gt;
+
+&lt;h3 id=&#34;книги:16976d4dabb7b5c48b6f170bee2225bf&#34;&gt;Книги&lt;/h3&gt;
+
+&lt;p&gt;Я люблю книги, покупаю их и пропитываюсь новыми знаниями и взглядами на жизнь. Хорошие книги вдохновляют меня и придают мне энергию. Я бы хотел рассказать о прочитанных книгах и о том, чему я из них научился. Во многих книгах есть упражнения, до которых не всегда доходят руки. В этой рубрике можно рассказывать о своём опыте выполнения этих упражнений и о том, как повлияла на меня каждая книга. И так можно будет развивать сайт быстрее.&lt;/p&gt;
+
+&lt;p&gt;В плане внешнего вида, мне нравится, как оформлен блок «Сейчас читаю» на сайте Елены Глубко &lt;a href=&#34;http://elena.glubko.ru/&#34;&gt;http://elena.glubko.ru/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;прочие-материалы:16976d4dabb7b5c48b6f170bee2225bf&#34;&gt;Прочие материалы&lt;/h3&gt;
+
+&lt;p&gt;По моему опыту, в процессе ведения экспериментов я буду отвлекаться, и будут появляться материалы, не связанные с экспериментом, достойные отдельной статьи. Поэтому на сайте может появиться блок с прочими материалами. Сейчас сложно предсказать, что в нём будет и как он будет выглядеть, поэтому просто подожду первого появления таких статей.&lt;/p&gt;
+
+&lt;h3 id=&#34;что-же-получилось:16976d4dabb7b5c48b6f170bee2225bf&#34;&gt;Что же получилось?&lt;/h3&gt;
+
+&lt;p&gt;Всё оказалось намного проще, чем я думал в самом начале, у меня пока что нет дорожной карты, но я запустил этот сайт. И вот версия дизайна, которая получилась в самом начале, думаю, что она будет меняться и скоро я её не узнаю (и мне будет стыдно ^^):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://eliseealex.me/image/lp-3/main.png&#34; title=&#34;Full preview&#34;&gt;&lt;/p&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+  Дальше, я &lt;a href=&#34;http://eliseealex.me/lispress/4-happy-end&#34;&gt;расскажу вам чем закончилась разработка&lt;/a&gt;.
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>День 2. Это провал?!</title>
+      <link>http://eliseealex.me/hackday-41/day-2/</link>
+      <pubDate>Sat, 26 Mar 2016 23:39:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/hackday-41/day-2/</guid>
+      <description>
+
+&lt;p&gt;Пошёл второй день.&lt;/p&gt;
+
+&lt;p&gt;Вчера я составил список задач и программу минимум по этому мероприютию:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;разобраться в новой технологии бекенда, поднять сервер и настроить отсылку запросов в influxdb.&lt;/li&gt;
+&lt;li&gt;разобраться с идентификацией на стороне пользователя, привязыванием айдишника;&lt;/li&gt;
+&lt;li&gt;придумать схему связывания нескольких истории на нескольких устройствах пользователя;&lt;/li&gt;
+&lt;li&gt;попробовать использовать на своём блоге эту систему и разработать скрипты для отправки сообщений на сервер;&lt;/li&gt;
+&lt;li&gt;разобраться с тем, как можно обновлять скрипты в зависимости от информации на сервере.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;процесс-разработки:b1a77f8f2d21d3cd0f4a69b2d90693a1&#34;&gt;Процесс разработки&lt;/h2&gt;
+
+&lt;p&gt;Я пришёл с утра и всё пошло как по маслу. Вначале, я разобрался с фронт ендом, нашёл библиотечки, которые решают почти все мои задачи: сплит-тестирование, коментарии к элементам страницы, работа с куками, отсылка запросов и с подготовительной работой по фронт енду я справился очень быстро.&lt;/p&gt;
+
+&lt;p&gt;Дальше я перешёл к серверу, я хотел использовать Clojure, но понял, что не готов нырять в полностью новую инфраструктуру и решил упростить себе задачу и использовать Scala.&lt;/p&gt;
+
+&lt;p&gt;Я давно хотел разобраться с &lt;a href=&#34;http://doc.akka.io/docs/akka/2.4.2/scala/http/&#34;&gt;Akka Http&lt;/a&gt; и отомстить ей за последний раз, когда я пытался в ней разобраться и отступил. Оказалось, что с того момента, документация не стала на много лучше, примеров в интернете всё ещё достаточно мало и порог вхождения, как по мне, всё ещё достаточно высокий. Я начал с Low-Level Server-Side API, он показался мне легче и понятнее, он был очень похож на то, что я видел обычно. Но я даже не понял сразу как превратить запрос в набор параметров. Этого же я не увидел и в High-Level Server-Side Api, но там было понятнее, что гуглить и я разобрался. Тем не менее, от документации осталось неприятное впечатление.&lt;/p&gt;
+
+&lt;p&gt;В итоге я потратил немало сил на то, чтобы разобраться с новыми технологиями, поднять инфраструктуру и занться делом и уже не хватило сил выпускать продукт и доводить его до ума. К тому же, я понял, что я не поставил себе хорошей прикладной задачи и из-за этого к концу второго дня я понимал, что не получится доделать до хорошего осязаемого и классного продукта и сдался. Конечно, в хакактоне — команда очень важная штука, она не даёт сдаваться в сложные времена. Без команды и без хорошей идеи на хакатоне будет сложно.&lt;/p&gt;
+
+&lt;p&gt;P.S. впрочем идея мне нравится и сдаваться я не собираюсь, мне всё-таки интересно будет развить сервис для аналитики и у меня появилось понимание, как к нему подступиться.&lt;/p&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+  Читайте о проекте для аналитики на scala &lt;a href=&#34;http://eliseealex.me/dynamica-1&#34;&gt;dynamica&lt;/a&gt;.
+  В нём продолжается работа над идеями этого проекта.&lt;br&gt;
+  &lt;br&gt;
+  Ещё читайте о создании &lt;a href=&#34;http://eliseealex.me/lispress&#34;&gt;прообраза этого блока&lt;/a&gt;. Я рассказал в этой серии статей
+  о том, почему я решил создать блог и почему выбрал для этого статический
+  генератор Hugo.
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>День 1. Ужасный питч и solo-hackathon</title>
+      <link>http://eliseealex.me/hackday-41/day-1/</link>
+      <pubDate>Fri, 25 Mar 2016 23:39:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/hackday-41/day-1/</guid>
+      <description>
+
+&lt;p&gt;Я Саша и я не подготовил питч =(&lt;/p&gt;
+
+&lt;p&gt;Да и идею я в общем-то тоже не подготовил, я ограничил область в которой я хочу делать проект, но не использовал никакой конкретики. Я до конца сомневался, решать мне популярную проблему или близкую мне. В общем, на презентации идеи я всё ещё сомневался и рассказал про популярную. Рассказал я очень расплывисто и неконструктивно.&lt;/p&gt;
+
+&lt;p&gt;И, конечно же, ни к чему хорошему это не привело. На этапе сбора команды мне не удалось найти программистов. Я успел пообщаться со специалистами из других команд и нашёл людей, которые готовы помочь советом или набросать какой-нибудь компонентик.&lt;/p&gt;
+
+&lt;h2 id=&#34;solo-hackathon-не-преговор:53303cf8e69372f62a0df8b7e12c47dc&#34;&gt;Solo-hackathon — не преговор&lt;/h2&gt;
+
+&lt;p&gt;На хакатоне, остаться одному — не так страшно, как кажется на первый взгляд. Всё равно, на мероприятии есть много опытных людей и они готовы помочь даже не присоединяясь в команду. &lt;mark&gt;Хакатон — это не соревнование&lt;/mark&gt; и это замечательно. Такие редкие посетители хакатонов, как маркетологи и дизайнеры часто помогают сразу нескольким командам.&lt;/p&gt;
+
+&lt;p&gt;И, если честно, я даже рад, что ко мне не присоединились люди, ведь идея у меня всё ещё сырая. И в этот день я решил ограничиться проработкой архитектуры приложения и доработкой идеи по возможности. Всё равно, я решил, что первую ночь я сплю, а вторую — как получится.&lt;/p&gt;
+
+&lt;p&gt;Я реально оценил, что у меня получится сделать за выходные и понял, что смогу поиграться только с одной новой технологией, поднять сервис и проработать только один кейс. В первую очередь, мне нужен этот сервис для моего блога, потому что я &lt;a href=&#34;http://eliseealex.me/lispress/2-blog-engine/#нужна-ли-блогам-гибкость:c96dc839c2d138b01046aff06e324f62&#34;&gt;решил использовать статический генератор сайта&lt;/a&gt;, а всю динамику подключать в качестве SaaS. Ещё я хочу проводить сплит тестирования, создавать рассылку и как раз для этого мне очень не помешает динамика. Пожалуй, этим я и займусь.&lt;/p&gt;
+
+&lt;h2 id=&#34;проработка-идеи:53303cf8e69372f62a0df8b7e12c47dc&#34;&gt;Проработка идеи&lt;/h2&gt;
+
+&lt;p&gt;Но допил фичи на сайт — это не занятие для хакатона, нужно взять что-то крупнее. Поэтому я решил, взять за основу изначальный план и всё-таки сделать сервис. Мне импонирует идея создания динамических компонентов для статических сайтов или статических страниц, в которые как раз и включить все разработанные компоненты.&lt;/p&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+  &lt;a href=&#34;http://eliseealex.me/hackday-41/day-2/&#34;&gt;Следующая статья.&lt;/a&gt;&lt;br&gt;
+  Признание своих ошибок и выводы из проваленного проекта.
+  &lt;br&gt;
+  &lt;br&gt;
+  Если не интересно читать о провале, обратите внимание на новый проект &lt;a href=&#34;http://eliseealex.me/dynamica-1&#34;&gt;dynamica&lt;/a&gt;.
+  В нём продолжается работа над этими идеями.
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Дорожная карта Dynamica.xyz</title>
+      <link>http://eliseealex.me/hackday-41/</link>
+      <pubDate>Fri, 25 Mar 2016 21:59:40 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/hackday-41/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Dynamica.xyz&lt;/strong&gt; — сервис, хранящий данные, связанные с пользователем, извлекающий из них полезную информацию и предоставляющий их с помощью REST Api.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Техническое задание:&lt;/strong&gt; &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;создать сервис, который можно использовать как лог действий пользователя;&lt;/li&gt;
+&lt;li&gt;создать специальную разметку сайта, позволяющую хранить семантику элементов;&lt;/li&gt;
+&lt;li&gt;отправлять информацию о взаимодействии с этими элементами в сервис;&lt;/li&gt;
+&lt;li&gt;интерпретировать эти взаимодействия как события и привязывать их к пользователю;&lt;/li&gt;
+&lt;li&gt;построить простой клиент который позволяет получить записанные данные для пользователя.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Задачи проекта:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;предоставить возможность использовать базу данных для статических сайтов;&lt;/li&gt;
+&lt;li&gt;испробовать time-series schemaless структуру для хранения данных;&lt;/li&gt;
+&lt;li&gt;предоставить динамические элементы для статических сайтов.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Цели проекта:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;понятный, полезный прототип за 48 часов;&lt;/li&gt;
+&lt;li&gt;вспомнить scala;&lt;/li&gt;
+&lt;li&gt;рассказать про hackathon в одиночку.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Дорожная карта [Лис.пресс](https://lis.press)</title>
+      <link>http://eliseealex.me/lispress/</link>
+      <pubDate>Thu, 24 Mar 2016 21:47:42 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/lispress/</guid>
+      <description>&lt;p&gt;Лис.пресс — платформа для презентации результатов работы над проектами.&lt;/p&gt;
+
+&lt;p&gt;Я сохранил эту серию статей, как историю создания блога, в основе которого лежит рубрикатор. Многие из идей мне нравятся до сих пор и будут использованы дальше, но для начала я доделаю парочку своих проектов. На lis.press я буду писать о них на английском и буду использовать его для продвижения своих продуктов.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Цели проекта:&lt;/strong&gt; &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;научиться работать по методологии Lean Startup;&lt;/li&gt;
+&lt;li&gt;найти и описать жизненный цикл, подходящий для разработки домашних проектов;&lt;/li&gt;
+&lt;li&gt;узнать о маркетинге и продвижении продукта;&lt;/li&gt;
+&lt;li&gt;нетворкинг (найти людей, которые могут поделиться советом в интересующих областях).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Задачи проекта:&lt;/strong&gt; &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;создать платформу для презентации работ над Open-source проектами;&lt;/li&gt;
+&lt;li&gt;найти работающую &lt;a href=&#34;http://eliseealex.me/lispress/1-hypothesis/#гипотезы:1d2ea8c9b9b77a0c3c0307f6b807ac68&#34;&gt;гипотезу ценности&lt;/a&gt; (узнать, что пользователям интересно читать);&lt;/li&gt;
+&lt;li&gt;найти работающую &lt;a href=&#34;http://eliseealex.me/lispress/1-hypothesis/#гипотезы:1d2ea8c9b9b77a0c3c0307f6b807ac68&#34;&gt;гипотезу роста&lt;/a&gt; (блог растёт самостоятельно,  без рекламы); &lt;/li&gt;
+&lt;li&gt;привлечь аудиторию, готовую активно обсуждать решения;&lt;/li&gt;
+&lt;li&gt;найти людей, готовых использовать разработанную систему у себя в проекте.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Приоритеты:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;реализовывать только те задачи, которые лежат в основе гипотез;&lt;/li&gt;
+&lt;li&gt;писать об использованных инструментах и не стесняться провалов;&lt;/li&gt;
+&lt;li&gt;вовлекать пользователей как можно сильнее в развитие проекта;&lt;/li&gt;
+&lt;li&gt;быть &lt;a href=&#34;https://github.com/eliseealex/lis.press.hugo&#34;&gt;open source&lt;/a&gt; не только в коде, но и в процессах.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Примечание:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Планы звучат внушительно, но в итоге была реализована очень маленькая часть запланированного. Зато, я узнал, как писать о домашних проектов и какие ошибки не стоит допускать на этапе планирования. Но об этом подробнее на &lt;a href=&#34;http://eliseealex.me/lispress/4-happy-end&#34;&gt;4 шаге&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Прототип на Hugo</title>
+      <link>http://eliseealex.me/lispress/2.2-hugo/</link>
+      <pubDate>Sun, 20 Mar 2016 21:37:12 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/lispress/2.2-hugo/</guid>
+      <description>
+
+&lt;p&gt;Я продолжаю создание &lt;a href=&#34;http://eliseealex.me/lispress/1-hypothesis/&#34;&gt;платформы для презентации проектов по методологии Lean&lt;/a&gt;. Из &lt;a href=&#34;http://eliseealex.me/lispress/2-blog-engine/&#34;&gt;шага 2&lt;/a&gt;, вы знаете, что я уже понял, что мне не нужна CMS, тем не менее, на &lt;a href=&#34;http://eliseealex.me/lispress/2.1-ghost/&#34;&gt;шаге 2.1&lt;/a&gt; я рассказываю про то, как я поднимал Ghost, то есть, про самую первую версию сайта.&lt;/p&gt;
+
+&lt;p&gt;Я очень хотел простоты, и я нашёл &lt;a href=&#34;http://gohugo.io&#34;&gt;Hugo&lt;/a&gt;. Это даже не платформа, а просто генератор статических сайтов. И, дойдя до него, я познал дзен. Я хотел слишком многого от блога, на самом деле, мне нужна просто утилитка, которая сгенерит мне статический сайтик. А всё, что я хочу, вроде аналитики, платформы для написания статей и прочих плюшек — может быть реализовано в виде внешних сервисов.&lt;/p&gt;
+
+&lt;p&gt;Я поднял среду для разработки фронтенда, статически сверстал главную страницу, перенёс вёрстку в новую тему Hugo, поковырялся в настройках темы, сделал её слегка динамичнее, поднял виртуалку, настроил сервер, и всё готово. Дальше обо всём по порядку.&lt;/p&gt;
+
+&lt;h2 id=&#34;настройка-среды-для-создания-сайтов:3eb5c6de3f65646ba090591df4e41c2d&#34;&gt;Настройка среды для создания сайтов&lt;/h2&gt;
+
+&lt;p&gt;Я решил начать с просмотра того, как верстают опытные люди, и наткнулся на этого &lt;a href=&#34;https://www.youtube.com/user/agragregra&#34;&gt;блоггера&lt;/a&gt;. Мне понравился его курс, особенно подход к созданию рабочей среды. Я адаптировал под себя &lt;a href=&#34;https://www.youtube.com/watch?v=4e7_zaNNIlU&#34;&gt;его шаблон&lt;/a&gt;. Чтобы сверстать статический сайт с главной страницей. Подробнее о дизайне главной страницы я расскажу на шаге 3.&lt;/p&gt;
+
+&lt;h2 id=&#34;создание-темы-для-hugo:3eb5c6de3f65646ba090591df4e41c2d&#34;&gt;Создание темы для Hugo&lt;/h2&gt;
+
+&lt;p&gt;Когда я получил версию, которая мне понравилась, я решил перенести её в новую тему Hugo.&lt;/p&gt;
+
+&lt;p&gt;Я не буду писать о том, как просто создать новый сайт на Hugo, об этом замечательно написано в &lt;a href=&#34;http://gohugo.io/overview/quickstart/&#34;&gt;Quick Guide&lt;/a&gt; в официальной документации. Я даже не буду писать подробно о командах, которые нужно применить, чтобы сгенерировать базовый шаблон для темы, это тоже &lt;a href=&#34;http://gohugo.io/themes/creation/&#34;&gt;отлично описано в официальной документации&lt;/a&gt;. Я расскажу о своём опыте и своих впечатлениях. Я скачал парочку тем: &lt;a href=&#34;http://themes.gohugo.io/cactus/&#34;&gt;hugo-cactus-theme&lt;/a&gt; и &lt;a href=&#34;http://themes.gohugo.io/hugo-uno/&#34;&gt;hugo-uno&lt;/a&gt;, чтобы было, откуда черпать вдохновение.&lt;/p&gt;
+
+&lt;p&gt;Предположим, что теперь всё готово, мы установили Hugo, скачали парочку тем, создали шаблон и хотим создать нашу новую тему. Всё очень просто, для этого нужно изменить шаблон главной страницы, то есть файл &lt;code&gt;layouts/index.html&lt;/code&gt;, (&lt;a href=&#34;https://github.com/eliseealex/hugo-lis/blob/47746e85668471c42f633caa95c10e99b416dc60/layouts/index.html&#34;&gt;мой&lt;/a&gt;) и шаблон для статьи, файл &lt;code&gt;layouts/_default/single.html&lt;/code&gt;, (&lt;a href=&#34;https://github.com/eliseealex/hugo-lis/blob/47746e85668471c42f633caa95c10e99b416dc60/layouts/_default/single.html&#34;&gt;мой&lt;/a&gt;). Если вы посмотрите мои файлы, то увидите, как я использовал грязный хак и вручную прописал все ссылки до статей. Я считаю, что на первом этапе — в этом нет ничего плохого. Тем не менее, я решил сделать страницы слегка динамичнее и применить некоторые стандартные переменные Hugo, если что, он берёт их из &lt;code&gt;config.toml&lt;/code&gt; основного сайта &lt;a href=&#34;https://github.com/eliseealex/lis.press.hugo/blob/1402f624ebaa0d82ee23a9ac8645083948a2d31c/config.toml&#34;&gt;мой конфиг&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;настройка-среды-для-создания-сайтов-с-помощью-hugo:3eb5c6de3f65646ba090591df4e41c2d&#34;&gt;Настройка среды для создания сайтов с помощью Hugo&lt;/h2&gt;
+
+&lt;p&gt;К этому моменту я понял, что в Hugo мне тоже нужен автоматический постпроцессинг SASS и перезагрузка страницы после изменений. У него есть своя автоматическая перезагрузка страницы по изменению файлов, поэтому мне пришлось немножко поразбираться со скриптом Gulp для статического сайта и адаптировать его для Hugo.&lt;/p&gt;
+
+&lt;p&gt;Оказывается, что всё, что делает Gulp — это следит за изменением файлов в указанных файлах, запускает постпроцессинг Sass и минификацию Css и Jss и сохраняет эти файлы в указанные в скрипте папки. Также после любых изменений он даёт команду перезагрузки браузеру, и страница обновляется. Всё очень просто. Вторая часть скрипта уже реализована в виде Live Reload в Hugo, так что я её просто выкинул. Остались только препроцессинг Sass и минификация (&lt;a href=&#34;https://github.com/eliseealex/hugo-lis/blob/1402f624ebaa0d82ee23a9ac8645083948a2d31c/gulpfile.js&#34;&gt;мой скрипт&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h2 id=&#34;деплой-приложения:3eb5c6de3f65646ba090591df4e41c2d&#34;&gt;Деплой приложения&lt;/h2&gt;
+
+&lt;p&gt;До этого я деплоил приложения через Apache Server в предустановленных образах систем. Но, тем не менее, из-за того, что мне приходилось каждый раз в конфигах прописывать вручную SSL-сертификаты, я разобрался, как настраивается Http-сервер.&lt;/p&gt;
+
+&lt;p&gt;Я поднял ещё одну виртуалку на DigitalOcean, установил hugo и git, залил локальную версию Hugo-сайта в гит, склонировал репозиторий на виртуалку, включил сервер hugo, и всё заработало ^^ Кайф. И всё благодаря &lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-install-and-use-hugo-a-static-site-generator-on-ubuntu-14-04&#34;&gt;одному гайду&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Оставалось только добавить SSL. Но оказалось, что встроенный сервер Hugo его не поддерживает и вообще должен использоваться только для разработки. На случай продакшена Hugo просто генерит все файлы статически, и их можно раздавать с помощью любого веб-сервера. На этот раз я решил использовать NginX, коллеги мне сказали, что он значительно быстрее Apache. Я посмотрел Benchmark’и и согласился. Всё оказалось очень просто.&lt;/p&gt;
+
+&lt;p&gt;Для установки NginX я использовал эти гайды:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-14-04-lts&#34;&gt;Как установить NginX на убунту 14.04 lts&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04-lts&#34;&gt;Как настроить виртуальный сервер с помощью NginX&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-install-an-ssl-certificate-from-a-commercial-certificate-authority#nginx&#34;&gt;Как установить коммерческий SSL-сертификат&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+  Надеюсь, что этой статьёй я закончу &lt;a href=&#34;http://eliseealex.me/lispress/2-blog-engine/&#34;&gt;второй шаг&lt;/a&gt; и дальше буду использовать Hugo. Мне очень нравится этот движок для блогов, и пока что он мне полностью подходит.
+  &lt;br&gt;&lt;br&gt;
+  Дальше, я &lt;a href=&#34;http://eliseealex.me/lispress/3-main-design&#34;&gt;расскажу вам про дизайн главной страницы&lt;/a&gt;.
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

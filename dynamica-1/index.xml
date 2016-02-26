@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dynamica-1s on Блог Александра Елисеева</title>
+    <link>http://eliseealex.me/dynamica-1/</link>
+    <description>Recent content in Dynamica-1s on Блог Александра Елисеева</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 21 May 2016 13:55:13 +0300</lastBuildDate>
+    <atom:link href="http://eliseealex.me/dynamica-1/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Создание проекта, настройка логирования и подключение зависимостей</title>
+      <link>http://eliseealex.me/dynamica-1/3-configuration/</link>
+      <pubDate>Sat, 21 May 2016 13:55:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/dynamica-1/3-configuration/</guid>
+      <description>
+
+&lt;p&gt;В &lt;a href=&#34;http://eliseealex.me/dynamica-1/2-requirements/#практика:a83e134770bff64237826b69845b3034&#34;&gt;конце прошлого шага&lt;/a&gt;
+я показал модель системной архитектуры, которую мне предстоит реализовать.
+В ней есть две внешние зависимости, это Rest Api, доступный пользователю
+и подключение к базе данных InfluxDb.
+Для реализации Rest Api мне понадобится веб-сервер, а для InfluxDb — библиотека интеграции.
+В них мне предстоит разобраться, сегодня я расскажу об этом.&lt;/p&gt;
+
+&lt;p&gt;Я буду объяснять в медленном темпе, по шагам.
+Буду переходить от эксперементов к архитектуре постепенно.
+И в этой статье расскажу только про создание, подключени зависимостей и конфигурацию логирования.&lt;/p&gt;
+
+&lt;h2 id=&#34;создание-проекта:63cd773274a994446b1bdb9adec3c264&#34;&gt;Создание проекта&lt;/h2&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/my.dynamica/tree/ae73c87718d2deb113264930c6105ca2729ea96e&#34;&gt;Ревизия на гитхабе&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;p&gt;Я использую &lt;a href=&#34;https://www.jetbrains.com/idea/index.html&#34;&gt;IntelliJ Idea&lt;/a&gt;, обычно последней версии &lt;a href=&#34;https://confluence.jetbrains.com/display/IDEADEV/EAP&#34;&gt;EAP&lt;/a&gt;.
+Поэтому создание проекта буду рассказывать на её примере.
+IDE просто автоматизирует, создание файлов и папок, так что конечный результат
+не будет отличаться от сделанного, например, в виме.&lt;/p&gt;
+
+&lt;h3 id=&#34;конфигурация-sbt:63cd773274a994446b1bdb9adec3c264&#34;&gt;Конфигурация sbt&lt;/h3&gt;
+
+&lt;p&gt;Я создал в идее новый sbt-проект, дождался, пока всё проинициализируется.
+&lt;a href=&#34;http://www.scala-sbt.org/&#34;&gt;Sbt&lt;/a&gt; — это аналог мавена для Scala, он загружает зависимости и собирает проект.
+У Sbt есть два типа конфигурации: sbt-файлы и scala-файлы, модульный проект можно создать только с помощью вторых.
+Но сейчас, не буду усложнять, потому что по дефолту создаётся sbt-конфигурация.
+Я добавил зависимости в этот файл &lt;code&gt;build.sbt&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/my.dynamica/blob/ae73c87718d2deb113264930c6105ca2729ea96e/build.sbt&#34;&gt;На гитхабе&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;name := &amp;quot;dynamica&amp;quot;
+
+version := &amp;quot;1.0&amp;quot;
+
+scalaVersion := &amp;quot;2.11.8&amp;quot;
+
+libraryDependencies ++= {
+  val akkaV       = &amp;quot;2.4.6&amp;quot;
+  val scalaTestV  = &amp;quot;2.2.5&amp;quot;
+  Seq(
+    &amp;quot;com.typesafe.akka&amp;quot;           %% &amp;quot;akka-actor&amp;quot;                           % akkaV,
+    &amp;quot;com.typesafe.akka&amp;quot;           %% &amp;quot;akka-http-experimental&amp;quot;               % akkaV,
+    &amp;quot;com.paulgoldbaum&amp;quot;            %% &amp;quot;scala-influxdb-client&amp;quot;                % &amp;quot;0.4.5&amp;quot;,
+    &amp;quot;ch.qos.logback&amp;quot;              % &amp;quot;logback-classic&amp;quot;                       % &amp;quot;1.1.3&amp;quot;,
+    &amp;quot;com.typesafe.scala-logging&amp;quot;  %% &amp;quot;scala-logging&amp;quot;                        % &amp;quot;3.1.0&amp;quot;
+  )
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Я добавил зависимость от &lt;code&gt;akka&lt;/code&gt; для создания акторов.
+Добавил зависимость от &lt;code&gt;akka-http-experimental&lt;/code&gt; для создания веб-сервера.
+В акка есть стабильная версия &lt;code&gt;akka-http-core&lt;/code&gt;, но в ней отсутствует Routing DSL, по крайней мере на момент последней доступной версии.
+Добавил зависимость от &lt;code&gt;scala-influxdb-client&lt;/code&gt; для того, чтобы иметь интеграцию с InfluxDb.
+Добавил зависимости &lt;code&gt;logback-classic&lt;/code&gt; и &lt;code&gt;scala-logging&lt;/code&gt; для того, чтобы иметь возможность логировать запросы.&lt;/p&gt;
+
+&lt;h3 id=&#34;конфигурация-логирования-через-logback:63cd773274a994446b1bdb9adec3c264&#34;&gt;Конфигурация логирования через logback&lt;/h3&gt;
+
+&lt;p&gt;Кроме этого, я в папке &lt;code&gt;src/main/resources&lt;/code&gt; добавил настройки для логирования в файл &lt;code&gt;logback.xml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/my.dynamica/blob/ae73c87718d2deb113264930c6105ca2729ea96e/src/main/resources/logback.xml&#34;&gt;На гитхабе&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;configuration scan=&amp;quot;true&amp;quot; scanPeriod=&amp;quot;10 seconds&amp;quot;&amp;gt;
+    &amp;lt;appender name=&amp;quot;STDOUT&amp;quot; class=&amp;quot;ch.qos.logback.core.ConsoleAppender&amp;quot;&amp;gt;
+        &amp;lt;encoder&amp;gt;
+            &amp;lt;pattern&amp;gt;
+                %d{HH:mm:ss.SSS} %-5level [%thread] %logger{128} - %msg%n
+            &amp;lt;/pattern&amp;gt;
+        &amp;lt;/encoder&amp;gt;
+    &amp;lt;/appender&amp;gt;
+
+    &amp;lt;root level=&amp;quot;DEBUG&amp;quot;&amp;gt;
+        &amp;lt;appender-ref ref=&amp;quot;STDOUT&amp;quot; /&amp;gt;
+    &amp;lt;/root&amp;gt;
+&amp;lt;/configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;С конфигурацией пока закончили. В этот момент, в проекте не должно быть ошибок
+и sbt должен был скачать все зависимости.&lt;/p&gt;
+
+&lt;h3 id=&#34;проверка-работоспособности:63cd773274a994446b1bdb9adec3c264&#34;&gt;Проверка работоспособности&lt;/h3&gt;
+
+&lt;p&gt;Проверим, что всё работает правильно, для этого создадим в пакете my.dynamica
+файл Main со следующим содержанием:&lt;/p&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/my.dynamica/blob/ae73c87718d2deb113264930c6105ca2729ea96e/src/main/scala/my/dynamica/Main.scala&#34;&gt;На гитхабе&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package my.dynamica
+
+import com.typesafe.scalalogging.StrictLogging
+
+object Main extends App with StrictLogging {
+  logger.info(&amp;quot;I&#39;m ready. World, hold on!&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;В результате должно появиться сообщение в логах, если всё правильно.
+Если сообщение появилось — зависимости подтянулись, использовали логер из подключеных пакетов.&lt;/p&gt;
+
+&lt;h3 id=&#34;дальнейшая-работа-над-проектом:63cd773274a994446b1bdb9adec3c264&#34;&gt;Дальнейшая работа над проектом&lt;/h3&gt;
+
+&lt;p&gt;Я буду публиковать дальнейшие шаги работы над проектом в описании к комитам &lt;a href=&#34;https://github.com/eliseealex/my.dynamica/commits/master&#34;&gt;на
+гитхабе&lt;/a&gt;.
+В блоге буду публиковать только важные моменты архитектурные моменты
+или наблюдения.&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;factoid-bottom factoid&#34;&gt;
+  &lt;p&gt;Эта статья будет дополнена.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Akka на практике, первые шаги</title>
+      <link>http://eliseealex.me/dynamica-1/2-requirements/</link>
+      <pubDate>Wed, 27 Apr 2016 20:34:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/dynamica-1/2-requirements/</guid>
+      <description>
+
+&lt;p&gt;В &lt;a href=&#34;http://eliseealex.me/dynamica-1/1-akka/&#34;&gt;прошлой статье&lt;/a&gt; я рассказал об общих идея акки.&lt;/p&gt;
+
+&lt;p&gt;В этой статье я покажу на практике, как устроены акторы и как они взаимодействуют.
+Я расскажу о том, как создаются акторы, как они общаются между собой и том, как нужно обрабатывать ошибки.&lt;/p&gt;
+
+&lt;p&gt;Напомню, что актор — это абстракция, которая позволяет использовать изменяющиеся ресурсы при обработке поступивших задач, не задумываясь о многопоточности. Это возможно из-за того, что все операции происходят последовательно в рамках одного псевдопотока.&lt;/p&gt;
+
+&lt;h4 id=&#34;mailbox:a83e134770bff64237826b69845b3034&#34;&gt;Mailbox&lt;/h4&gt;
+
+&lt;p&gt;Задачи, которые обрабатывает актор — это сообщения, полученные от других акторов. В стандартном поведении акки, актор достаёт сообщения из специального списка (почтового ящика) и обрабатывает их.&lt;/p&gt;
+
+&lt;p&gt;Кладутся эти сообщения путём передачи объектов актору по ссылке (&lt;code&gt;ActorRef&lt;/code&gt; или &lt;code&gt;ActorSelection&lt;/code&gt;) и делается это примерно так:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;actor ! message
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;В результате этой команды, в почтовом ящике актора, который лежит по ссылке окажется сообщение .
+Как только сообщение попадёт в почтовый ящик, исполнение этой команды закончится и вызывающий актор продолжит работу.
+В этом случае говорят, что актор не блокируется (если бы он ожидал исполнения команды, он оказался заблокированым и не мог выполнять другие задачи в это время).
+Но это также значит, что актор не получает результата исполнения этой команды (вообще, он может его получить в виде ответного сообщения или через другие скаловские примитивы).&lt;/p&gt;
+
+&lt;h4 id=&#34;что-происходит-дальше-с-сообщением:a83e134770bff64237826b69845b3034&#34;&gt;Что происходит дальше с сообщением?&lt;/h4&gt;
+
+&lt;p&gt;Основная логика актора сосредоточена в методе &lt;code&gt;recieve&lt;/code&gt;, в нём обрабатываются сообщения.
+Сообщение в этот метод передаёт система акторов.
+Акка даёт &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/message-delivery-reliability.html&#34;&gt;гарантии, в каком порядке будут доставлены сообщения&lt;/a&gt;,
+но задумываться об этом стоит только в том случае, если без этого не обойтись.&lt;/p&gt;
+
+&lt;p&gt;На обработку сообщения лучше посмотреть на примере:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import akka.actor.Actor
+import akka.actor.Props
+import akka.event.Logging
+
+class MyActor extends Actor {
+  val log = Logging(context.system, this)
+
+  def receive = {
+    case &amp;quot;test&amp;quot; =&amp;gt; log.info(&amp;quot;received test&amp;quot;)
+    case myObject: MyObject =&amp;gt; log.info(&amp;quot;received MyObject&amp;quot;)
+    case MyClass(x, _) =&amp;gt; log.info(s&amp;quot;received an instance of MyClass with first field [$x]&amp;quot;)
+    case x: Any =&amp;gt; log.warn(s&amp;quot;received unknown message: $x&amp;quot;)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;a href=&#34;http://doc.akka.io/docs/akka/current/scala/actors.html&#34;&gt;Больше примеров&lt;/a&gt;&lt;br&gt;&lt;br&gt;
+  &lt;a href=&#34;http://docs.scala-lang.org/tutorials/tour/pattern-matching.html&#34;&gt;О Pattern Matching&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Мы создали актор и научили принимать его четыре вида сообщений. Результаты приёма мы записываем в логи.
+Для обработки сообщений используется Pattern Matching, эта конструкция, похожа на &lt;code&gt;switch...case&lt;/code&gt;, но более универсальна.
+В частности, её можно использовать для определения типа объекта, как во второй конструкции Case
+или даже для определения типа объекта и получения значения полей объекта, как показано на третьей строчке.&lt;/p&gt;
+
+&lt;h4 id=&#34;как-получить-ссылки-на-другие-акторы:a83e134770bff64237826b69845b3034&#34;&gt;Как получить ссылки на другие акторы?&lt;/h4&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/addressing.html&#34;&gt;Об адресации акторов в документации&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Для отправки сообщения нужна ссылка на актор, который будет его обрабатывать.
+Есть два вида ссылок, о которых я уже упомянул: &lt;code&gt;ActorSelection&lt;/code&gt; и &lt;code&gt;ActorRef&lt;/code&gt;.
+Их отличие в том, что &lt;code&gt;ActorSelection&lt;/code&gt; может указывать сразу на несколько акторов
+и доставляет сообщения сразу в несколько почтовых ящиков, а &lt;code&gt;ActorRef&lt;/code&gt; — это ссылка
+на один конкретный актор.&lt;/p&gt;
+
+&lt;p&gt;Получить &lt;code&gt;ActorSelection&lt;/code&gt; можно, указав путь до актора. Это может быть абсолютный или относительный путь, в этом пути могут содержаться wildcard&amp;rsquo;ы:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;context.actorSelection(&amp;quot;../brother&amp;quot;) ! msg
+context.actorSelection(&amp;quot;/user/serviceA&amp;quot;) ! msg
+context.actorSelection(&amp;quot;../*&amp;quot;) ! msg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Относительный путь имеет отношение к иерархии акторов, о ней мы поговорим чуть ниже.&lt;/p&gt;
+
+&lt;p&gt;Ссылку &lt;code&gt;ActorRef&lt;/code&gt; получить проще. У любого актора есть родитель и на него можно получить ссылку.
+Эта ссылка прикладывается к каждому сообщения и можно получить такую ссылку вызвав метод &lt;code&gt;sender()&lt;/code&gt;.
+Эту ссылку можно передавать в конструкторе при создании актора.
+И, наконец, эта ссылка получается при создании актора:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;val myActor: ActorRef = Actor.of(Props.create(MyActor.class))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;summary&#34;&gt;
+  &lt;h4&gt;&lt;code&gt;actorOf&lt;/code&gt; vs &lt;code&gt;actorSelection&lt;/code&gt;&lt;/h4&gt;
+  &lt;p&gt;&lt;code&gt;actorOf&lt;/code&gt; создаёт актор, а &lt;code&gt;actorSelection&lt;/code&gt; ищет.&lt;/p&gt;
+  &lt;p&gt;На деле, чаще используется &lt;code&gt;ActorRef&lt;/code&gt;, он позволяет лучше убедиться
+  в том, что вызывается правильный актор. Его можно передать в конструктор
+  или получить после создания нового актора.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;кто-должен-создавать-акторы:a83e134770bff64237826b69845b3034&#34;&gt;Кто должен создавать акторы?&lt;/h4&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/supervision.html&#34;&gt;О родительстве акторов и мониторинге здоровья&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Актор, который был создан внутри актора становится его ребёнком. Актор-родитель становится ответственным за обработку ошибок ребёнка
+и может либо обработать ошибку самостоятельно, либо делегировать его своему родителю.
+Один из принципов, лежащий в основе акторов, — Let It Crash связан именно с этим явлением.
+В иерархии акторов должен быть какой-то родитель, который решит, что делать со своими детьми в случае ошибки.
+Зная это, можно не задумываться об ошибках на нижних уровнях и не писать «defensive code».&lt;/p&gt;
+
+&lt;p&gt;В случае ошибки, случившейся в дочернем акторе, родитель может перезагрузить актор
+с тем же состоянием, сбросив состояние, сказать актору обрабатывать следующее сообщение
+либо отключить этот актор. Подробнее об этих правилах лучше прочитать
+&lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/supervision.html#What_Supervision_Means&#34;&gt;в официальной документации&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;summary&#34;&gt;
+  &lt;p&gt;В первую очередь иерархия — способ показать, кто должен обрабатывать ошибки.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;практика:a83e134770bff64237826b69845b3034&#34;&gt;Практика&lt;/h4&gt;
+
+&lt;p&gt;Учитывая эти особенности акки, можно построить первый набросок архитектуры.
+Для начала рассмотрим системную архитектуру:&lt;/p&gt;
+
+&lt;div style=&#34;text-align: center&#34;&gt;
+  &lt;img src=&#34;http://eliseealex.me/image/dy-1-2/components.png&#34; style=&#34;max-width: 450px;&#34; title=&#34;Диаграмма компонентов сервиса аналитики dynamica&#34; alt=&#34;Диаграмма компонентов сервиса аналитики dynamica&#34;/&gt;
+&lt;/div&gt;
+
+&lt;p&gt;На этой диаграмме показана акторная система с тремя основными компонентами.
+Я специально не стал называть их акторами, потому что может понадобиться большее количество акторов.
+На этом этапе важно понять, что есть три верхних точки иерархии системы:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;интеграция с InfluxDb и абстрагирование базы данных;&lt;/li&gt;
+&lt;li&gt;бизнес-логика, связанная с подготовкой статистики для пользователей;&lt;/li&gt;
+&lt;li&gt;веб-сервер, который предоставляет Rest Api клиентам, принимает запросы
+и подготавливает ответы клиентам.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;И для этих трёх компонентов я создам три актора верхнего уровня.
+Они будут обрабатывать ошибки и заниматься конфигурированием.
+А в акторах нижнего уровня будет содержаться вся бизнес-логика.&lt;/p&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+    В следующей статье [создадим и запустим проект на Scala](/dynamica-1/3-configuration).
+    &lt;br&gt;
+    &lt;br&gt;
+    Пишите свои пожелания на &lt;a href=&#34;mailto:eliseealex@gmail.com?Subject=%d0%91%d0%bb%d0%be%d0%b3%20%d0%90%d0%bb%d0%b5%d0%ba%d1%81%d0%b0%d0%bd%d0%b4%d1%80%d0%b0%20%d0%95%d0%bb%d0%b8%d1%81%d0%b5%d0%b5%d0%b2%d0%b0&#34; rel=&#34;nofollow&#34;&gt;eliseealex@gmail.com&lt;/a&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Первый взгляд на Akka</title>
+      <link>http://eliseealex.me/dynamica-1/1-akka/</link>
+      <pubDate>Tue, 26 Apr 2016 21:24:18 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/dynamica-1/1-akka/</guid>
+      <description>
+
+&lt;p&gt;Начну этот проект с обзора акки.
+Она будет связующим звеном между компонентами нашего сервиса аналитики.
+Но помимо транспорта, она даёт ещё несколько преимуществ, которые хорошо
+дополняют язык программирования Scala.
+Вооружившись документацией я начну с обзора этих преимуществ,
+в следующей статье расскажу о них подробнее, как они реализованы и дальше буду
+ими активно пользоваться.&lt;/p&gt;
+
+&lt;h4 id=&#34;scala-и-akka:37f564f89403327138c31aee10afd316&#34;&gt;Scala и Akka&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;В Scala преобладает парадигма функционального программирования (&lt;a href=&#34;https://www.coursera.org/course/progfun&#34;&gt;курс от создателя скалы&lt;/a&gt;). Она накладывает ограничение немутабельности на код. Это значит, что объекты не должны менять своё содержимое после создания. Если нужно изменить состояние объекта, создаём новый объект и дальше использовуем его.&lt;/li&gt;
+&lt;li&gt;В реальной жизни, это ограничение слишком строгое. Реальные программы работают с данными, которые постоянно изменяются. Они зависят от внешних источников информации и в наших процессах присутствует «память».&lt;/li&gt;
+&lt;li&gt;Эта «реальность» несёт за собой много проблем. Из-за них в обычных многопоточных программах появляется &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/terminology.html#Deadlock_vs__Starvation_vs__Live-lock&#34;&gt;большое количество ошибок&lt;/a&gt;.
+Но этой реальности не избежать.
+Поэтому в функциональных языках программирования (эрланг, скала) появились акторы.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;что-такое-актор:37f564f89403327138c31aee10afd316&#34;&gt;Что такое актор?&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Актор — это абстракция, которую легче всего представить как «однопоточное» приложение, которое выполняет список задач.
+На практике, это обозначает, что внутри актора можно использовать изменяющееся состояние и почти что забыть о многопточности.
+Однопоточность взята в кавычки, потому что актор не занимает поток JVM полностью и вообще, он может перемещаться между разными потоками.
+Подробнее об этом можно узнать &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/actors.html&#34;&gt;из описания акторов в документации&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;В однопоточном приложении могут одновременно существовать тысячи таких акторов.&lt;/li&gt;
+&lt;li&gt;Актор может иметь изменяемое состояние, независимое от внешнего мира. И пользоваться им, не заботясь о проблемах, которые &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/terminology.html&#34;&gt;обычно присущи многопоточным системам&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Тем не менее, такой подход требует использование &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/actor-systems.html#Actor_Best_Practices&#34;&gt;лучших практик&lt;/a&gt;.
+Если использовать акторы бездумно, то они не дадут никакой пользы.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;особенности-работы-с-акторами-выдержки-из-лучших-практик:37f564f89403327138c31aee10afd316&#34;&gt;Особенности работы с акторами (выдержки из лучших практик)&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;В основе акторов лежит философия «let it crash». Это значит, что не стоит писать обработку ошибок там же, где они возникают. Ошибки нужно обрабатывать на том уровне бизнес логики, на котором известно, что с ними делать. Это может быть реализовано с помощью &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/actor-systems.html#Hierarchical_Structure&#34;&gt;иерархической структуры акторов&lt;/a&gt;. Можно забыть о бесконечных траях и кетчах.&lt;/li&gt;
+&lt;li&gt;Блокирующие ресурсы (база данных, файлы на жёстком диске, синхронные http запросы и т.д.) требуют внимательного управления. Нельзя бездумно вызывать их в акторе (актор заблокируется и все запросы встанут в очередь), так же нельзя бездумно создавать футуры и исполнять запросы (их может стать слишком много и на сервере кончится память). Для этого есть &lt;a href=&#34;http://doc.akka.io/docs/akka/current/general/actor-systems.html#Blocking_Needs_Careful_Management&#34;&gt;особые подходы&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Изменяющееся состояние не должно выходить за рамки актора. Только немутабельные сообщения, не забываем, что это ФП. Не стоит забывать, что состояние можно передать случайно, если передавать в сообщении поведение (с помощью замыканий).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+    &lt;a href=&#34;http://eliseealex.me/dynamica-1/2-requirements&#34;&gt;Следующая статья об Akka на практике&lt;/a&gt;&lt;br&gt;
+    &lt;br&gt;
+    Читайте &lt;a href=&#34;http://doc.akka.io/docs/akka/current/scala.html&#34;&gt;документацию акки.&lt;/a&gt;&lt;br&gt;
+    &lt;br&gt;
+    Пишите свои пожелания на &lt;a href=&#34;mailto:eliseealex@gmail.com?Subject=%d0%91%d0%bb%d0%be%d0%b3%20%d0%90%d0%bb%d0%b5%d0%ba%d1%81%d0%b0%d0%bd%d0%b4%d1%80%d0%b0%20%d0%95%d0%bb%d0%b8%d1%81%d0%b5%d0%b5%d0%b2%d0%b0&#34; rel=&#34;nofollow&#34;&gt;eliseealex@gmail.com&lt;/a&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
