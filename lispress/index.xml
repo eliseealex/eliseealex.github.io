@@ -53,13 +53,14 @@
       <guid>http://eliseealex.me/lispress/3-main-design/</guid>
       <description>
 
-&lt;p&gt;В прошлых статьях я рассказывал, что делаю сайт, поделённый на рубрики. В них я в реальном времени рассказываю одну большую историю про то, как я работаю над отдельными проектами. Я рассказал про &lt;a href=&#34;http://eliseealex.me/lispress/1-hypothesis/&#34;&gt;гипотезы ценности и роста сайта&lt;/a&gt;, а так же &lt;a href=&#34;http://eliseealex.me/lispress/2-blog-engine/&#34;&gt;про запуск первой версии&lt;/a&gt; и &lt;a href=&#34;http://eliseealex.me/lispress/2.2-hugo/&#34;&gt;настройку среды для разработки с помощью hugo&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;В прошлых статьях я рассказал, что делаю сайт, поделённый на рубрики. Каждая рубрика — отдельный проект. Я создаю рубрику, когда создаю проект и наполняю её статьями по мере его развития. Я рассказал про &lt;a href=&#34;http://eliseealex.me/lispress/1-hypothesis/&#34;&gt;гипотезы ценности и роста сайта&lt;/a&gt;, &lt;a href=&#34;http://eliseealex.me/lispress/2-blog-engine/&#34;&gt;про запуск первой версии&lt;/a&gt; и &lt;a href=&#34;http://eliseealex.me/lispress/2.2-hugo/&#34;&gt;про разработку блога на hugo&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;И теперь я расскажу про то, как я учился дизайну и искал вдохновение для создания главной страницы. Я не дизайнер, но я люблю удобные продукты, которыми приятно пользоваться, поэтому, если вам что-то не нравится или вы знаете, как что-то сделать лучше, пишите, я люблю критику. Twitter: @eliseealex или по почте: eliseealex@gmail.com.&lt;/p&gt;
+&lt;p&gt;Теперь я расскажу про то, как я учился дизайну и искал вдохновение для создания главной страницы. Я не дизайнер, но я люблю удобные продукты, которыми приятно пользоваться. Если вы знаете, как лучше, пишите! Я люблю критику. Twitter: &lt;a href=&#34;https://twitter.com/eliseealex&#34;&gt;@eliseealex&lt;/a&gt; или по почте: eliseealex@gmail.com.&lt;/p&gt;
 
 &lt;h2 id=&#34;теория&#34;&gt;Теория&lt;/h2&gt;
 
-&lt;p&gt;В качестве источника я ограничусь советами бюро Артёма Горбунова. Позже, может быть, я расширю список источников и вынесу его в отдельную статью. Начнём с элементов вёрстки:&lt;/p&gt;
+&lt;p&gt;Перед созданием первой версии своего сайта я перечитал советы в бюро Артёма Горбунова.
+Их я и применял при создании главной страницы. Начнём с элементов вёрстки:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20140519/&#34;&gt;список элементов вёрстки и примеры&lt;/a&gt;;&lt;/li&gt;
@@ -79,12 +80,12 @@
 &lt;p&gt;С этим принципом связана серия статей «как собрать страницу из модулей»:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141013/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141013/&lt;/a&gt; — зачем нужна сетка;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141020/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141020/&lt;/a&gt; — страница без иллюстраций;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141027/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141027/&lt;/a&gt; — страница с иллюстрациями;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141103/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141103/&lt;/a&gt; — как сверстать текстовую страницу;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141110/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141110/&lt;/a&gt; — как сверстать главную страницу;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141117/&#34;&gt;http://artgorbunov.ru/bb/soviet/20141117/&lt;/a&gt; — об ушках, цитатах и фактоидах.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141013&#34;&gt;вёрстка с помощью модулей&lt;/a&gt;/;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141020/&#34;&gt;страница без иллюстраций&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141027/&#34;&gt;страница с иллюстрациями&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141103/&#34;&gt;как сверстать текстовую страницу&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141110/&#34;&gt;как сверстать главную страницу&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artgorbunov.ru/bb/soviet/20141117/&#34;&gt;об ушках, цитатах и фактоидах&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Ещё хотел бы выделить отдельные советы, которые показались интересными:&lt;/p&gt;
