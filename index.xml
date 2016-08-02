@@ -29,7 +29,7 @@
 
 &lt;h4 id=&#34;и-как-я-этого-добьюсь&#34;&gt;И как я этого добьюсь?&lt;/h4&gt;
 
-&lt;p&gt;Бот будет сохранять мои заметки и запоминать связанные хэштеги.&lt;/p&gt;
+&lt;p&gt;Бот будет сохранять мои заметки и запоминать их теги.&lt;/p&gt;
 
 &lt;p&gt;Бот покажет последние сообщения за день или все сообщения связанные с хештегом.&lt;/p&gt;
 
@@ -39,7 +39,7 @@
 
 &lt;div class=&#34;factoid&#34;&gt;
   &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/lise.bot&#34;&gt;&lt;i class=&#34;fa fa-github&#34;&gt;&lt;/i&gt; Посмотрите исходный код&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://web.telegram.org/#/im?p=@lise_bot&#34;&gt;&lt;i class=&#34;fa fa-paper-plane&#34;&gt;&lt;/i&gt; Поздоровайтесь с Lise&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://telegram.me/lise_bot&#34;&gt;&lt;i class=&#34;fa fa-paper-plane&#34;&gt;&lt;/i&gt; Поздоровайтесь с Lise&lt;/a&gt;&lt;/p&gt;
 
 &lt;/div&gt;
 
