@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scalas on Блог Александра Елисеева</title>
+    <link>http://eliseealex.me/scala/</link>
+    <description>Recent content in Scalas on Блог Александра Елисеева</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 17 Aug 2016 10:16:13 +0300</lastBuildDate>
+    <atom:link href="http://eliseealex.me/scala/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Экспортируем scala-проект в docker при помощи sbt-native</title>
+      <link>http://eliseealex.me/scala/docker-sbt-native/</link>
+      <pubDate>Wed, 17 Aug 2016 10:16:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/scala/docker-sbt-native/</guid>
+      <description>
+
+&lt;p&gt;Одна из первых проблем, которая возникает при создании приложения — это его сборка и запуск на сторонних машинах. В этой статье я расскажу, как я использую docker для того чтобы доставлять новые версии своего приложения на сервер.&lt;/p&gt;
+
+&lt;p&gt;Для сборки проектов на scala я использую &lt;a href=&#34;http://www.scala-sbt.org/&#34;&gt;sbt&lt;/a&gt;. Он позволяет загружать внешние зависимости к проектам и настраивать скрипты для сборки приложения, запуска и тестирования. Это как &lt;a href=&#34;https://maven.apache.org&#34;&gt;maven&lt;/a&gt; или &lt;a href=&#34;https://gradle.org&#34;&gt;gradle&lt;/a&gt; для java или &lt;a href=&#34;https://webpack.github.io/docs/&#34;&gt;webpack&lt;/a&gt; для js.&lt;/p&gt;
+
+&lt;p&gt;В sbt есть модуль &lt;a href=&#34;http://www.scala-sbt.org/sbt-native-packager/&#34;&gt;sbt native packeger&lt;/a&gt;, который позволяет собирать jar-ники и класть их в Docker. Документацию в проекте читать достаточно сложно, поэтому расскажу, на что нужно обратить внимание, чтобы всё получилось.&lt;/p&gt;
+
+&lt;p&gt;Я отталкиваюсь от того, что у вас уже есть готовый SBT-проект и объект с методом &lt;code&gt;main&lt;/code&gt;, который вы хотите запускать при старте приложения.&lt;/p&gt;
+
+&lt;h2 id=&#34;сборка-проекта&#34;&gt;Сборка проекта&lt;/h2&gt;
+
+&lt;p&gt;Для того, чтобы создать образ для операционной системы или для docker нужно сначала собрать приложение, которое будет лежать в этом образе. Для этого, нужно настроить sbt-native, чтобы он собирал приложение со всеми зависимостями и проверить, что всё работает правильно.&lt;/p&gt;
+
+&lt;p&gt;Я настраивал эту сборку для создания &lt;a href=&#34;http://eliseealex.me/lise-bot&#34;&gt;бота Lise&lt;/a&gt;. Поэтому буду показывать сборку на его примере.&lt;/p&gt;
+
+&lt;div class=&#34;factoid&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/sbt/sbt-native-packager&#34;&gt;Актуальная версия плагина здесь&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;p&gt;Сперва нужно добавить плагин в файл &lt;code&gt;/project/plugins.sbt&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;addSbtPlugin(&amp;quot;com.typesafe.sbt&amp;quot; % &amp;quot;sbt-native-packager&amp;quot; % &amp;quot;1.1.1&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Теперь нужно включить плагин в вашем файле &lt;code&gt;build.sbt&lt;/code&gt;, если на него ругается ваш ide — ничего страшного, так бывает в мире scala:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;enablePlugins(JavaAppPackaging)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ещё в этом же файле лучше указать путь до вашего класса с методом &lt;code&gt;main&lt;/code&gt; (пока он у вас один, плагин будет сам его определять, но вы можете об этом забыть и всё сломается):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;mainClass in Compile := Some(&amp;quot;press.lis.lise.Bot&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;После этого, если вызвать в командной строке &lt;code&gt;sbt stage&lt;/code&gt; в папке &lt;code&gt;./target/universal/stage/bin/&lt;/code&gt; появится скрипт для запуска приложения локально (там скрипты для командной строки linux/mac и windows).&lt;/p&gt;
+
+&lt;h2 id=&#34;сборка-приложения-для-разных-платформ&#34;&gt;Сборка приложения для разных платформ&lt;/h2&gt;
+
+&lt;p&gt;Дальше, можно собрать приложение так, чтобы оно запускалось на большинстве операционных систем. Для этого нужно собрать пакет &lt;a href=&#34;http://www.scala-sbt.org/sbt-native-packager/formats/index.html&#34;&gt;в подходящем формате&lt;/a&gt;. Я покажу сборку на примере jar.&lt;/p&gt;
+
+&lt;p&gt;Сборку пакета для докера мы разберём чуть ниже, она немного сложнее остальных.&lt;/p&gt;
+
+&lt;p&gt;Для сборки нужно включить подходящий плагин, для jar это &lt;code&gt;JDKPackagerPlugin&lt;/code&gt;. Его нужно указать в &lt;code&gt;build.sbt&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;enablePlugins(JDKPackagerPlugin)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;После этого будут доступны новые параметры для сборки через &lt;code&gt;sbt&lt;/code&gt;. К примеру, если вызвать в командной строке:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;sbt jdkPackager:packageBin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;В папке &lt;code&gt;./target/universal/jdkpackager&lt;/code&gt; появятся все файлы, необходимы для запуска приложения (включая внешние зависимости).&lt;/p&gt;
+
+&lt;p&gt;## Упаковка приложения в образ Docker&lt;/p&gt;
+
+&lt;p&gt;Для доставки приложения на сервер я предпочитаю &lt;a href=&#34;http://docker.com/&#34;&gt;Docker&lt;/a&gt;. На нём не нужно устанавливать ничего лишнего и настраивать среду для scala, можно скачать образ, где всё настроено и просто добавить в него приложение.&lt;/p&gt;
+
+&lt;p&gt;Для подключения Docker нужно в &lt;code&gt;build.sbt&lt;/code&gt; разрешить ещё один плагин:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;enablePlugins(DockerPlugin)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Для его выполнения нужен локально установленный Docker, если у вас его нет — с установкой проблем не должно быть. После этого можно загрузить образ в локальный docker:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;sbt docker:publishLocal
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;И запустить его:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;docker run -it lise-bot:1.0-SNAPSHOT
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Аргумент среды можно указывать прямо при запуске приложения, к примеру я запускаю docker так:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;sudo docker run --name=lise-bot --net=host lise-bot:1.0-SNAPSHOT -Dbot.token=XXX -Ddb.default.user=YYY -Ddb.default.password=ZZZ
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;--name=lise-bot&lt;/code&gt; — это название, которое отображается в утилитах докера, по которому можно остановить работу образа.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;--net=host&lt;/code&gt; — обозначает, что локальный компьютер будет доступен по адресу localhost. На маке и windows это не работало, когда я писал эту статью.&lt;/p&gt;
+
+&lt;h3 id=&#34;экспорт-артефакта-на-сервер&#34;&gt;Экспорт артефакта на сервер&lt;/h3&gt;
+
+&lt;p&gt;Осталось настроить экспорт артефакта. Я загружаю образ на сервер через репозиторий &lt;a href=&#34;https://hub.docker.com/&#34;&gt;docker hub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Для этого нужно создать аккаунт в &lt;a href=&#34;https://hub.docker.com/&#34;&gt;docker hub&lt;/a&gt; и войти в этот аккаунт используя:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;docker login
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Дальше нужно в &lt;code&gt;build.sbt&lt;/code&gt; указать имя репозитория, в котором будет доступен образ и имя создателя. Для меня это выглядело так:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;maintainer in Docker := &amp;quot;eliseealex&amp;quot;
+
+packageName in Docker := &amp;quot;eliseealex/lise-bot&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Приложение будет автоматически загружаться на Docker Hub если вызвать, в первый может быть долго:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;sbt docker:publish
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;На сервере нужно скачать этот образ, указав версию такую же как в &lt;code&gt;build.sbt&lt;/code&gt; (версия желательно указывать, в докере стандартное версионирование работает странно):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;sudo docker pull eliseealex/lise-bot:1.0-SNAPSHOT
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Мы загрузили образ, теперь можно запустить само приложение. Я запускаю его скрытым в консоли (используя &lt;code&gt;&amp;amp;&lt;/code&gt;), но можно вместо этого использовать утилиту &lt;code&gt;screen&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;sudo docker run --name=lise-bot --net=host eliseealex/lise-bot:1.0-SNAPSHOT -Dbot.token=XXX -Ddb.default.user=YYY -Ddb.default.password=ZZZ &amp;gt;&amp;gt; ~/lise-bot/bot.log &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Для обновления, я обычно обновляю образ, останавливаю текущую программу и запускаю её заново. Полная процедура обновления выглядит так:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;sudo docker pull eliseealex/lise-bot:1.0-SNAPSHOT
+sudo docker rm -f lise-bot
+sudo docker run --name=lise-bot --net=host eliseealex/lise-bot:1.0-SNAPSHOT -Dbot.token=XXX -Ddb.default.user=YYY -Ddb.default.password=ZZZ &amp;gt;&amp;gt; ~/lise-bot/bot.log &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://github.com/eliseealex/lise.bot/blob/59e8433a39e6f4a2fd3e757250072123daf4f8b9/build.sbt&#34;&gt;Полностью настроенный проект можно посмотреть здесь&lt;/a&gt;. Но там много лишнего.&lt;/p&gt;
+
+&lt;/div&gt;
+
+</description>
+    </item>
+    
+  </channel>
+</rss>
