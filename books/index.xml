@@ -6,8 +6,44 @@
     <description>Recent content in Books on Блог Александра Елисеева</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 31 Jul 2016 10:09:13 +0300</lastBuildDate>
+    <lastBuildDate>Wed, 17 Aug 2016 10:48:13 +0300</lastBuildDate>
     <atom:link href="http://eliseealex.me/books/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>«Learning Spark» — Holden Karau, Andy Konwinski, Patrick Wendell, Matei Zaharia</title>
+      <link>http://eliseealex.me/books/oreillys-learning-spark/</link>
+      <pubDate>Wed, 17 Aug 2016 10:48:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/books/oreillys-learning-spark/</guid>
+      <description>&lt;div style=&#34;text-align: center&#34;&gt;
+  &lt;img src=&#34;http://eliseealex.me/image/books/oreillys-learning-spark.jpg&#34; style=&#34;max-width: 450px;&#34; title=&#34;«Learning Spark» — Holden Karau, Andy Konwinski, Patrick Wendell, Matei Zaharia&#34; alt=&#34;«Learning Spark» — Holden Karau, Andy Konwinski, Patrick Wendell, Matei Zaharia&#34;/&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Недавно прошёл на собеседовании в качестве Big Data Enineer в компанию &lt;a href=&#34;http://wrike.com/&#34;&gt;Wrike&lt;/a&gt;. Там я буду заниматься созданием инфраструктуры для анализа данных и буду использовать &lt;a href=&#34;http://spark.apache.org/&#34;&gt;Apache Spark&lt;/a&gt;. До этого, я только слышал о нём, что многие используют, но не встречал на практике и не работал с ним локально.&lt;/p&gt;
+
+&lt;p&gt;До выхода на работу мне нужно было узнать о Spark побольше и я взялся за эту книгу. Когда я её читал была актуальной версия спарка 1.6 и выходила версия 2.0. В книжке написано про спарк 1.2, поэтому там нет многих интересных подробностей из новых версий Спарка и есть устаревшая информация.&lt;/p&gt;
+
+&lt;p&gt;Книга полезна тем, что она обзорно рассказывает о многих возможностях спарка и приводит примеры его использования, но мне не хватило глубины. Я хотел залезть поглубже и понять, как что работает, почему так сделали и как устроена его архитектура.&lt;/p&gt;
+
+&lt;p&gt;Большая часть книги посвящена настройки спарка и его взаимосвязи с внешними интсрументами, поэтому полезной информации о внутреннем устройстве спарка там не так много. В книге мне показалось интересным:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;объяснение, что такое shuffling, когда он бывает и как оптимально работать, зная, что данные пересылаются по сети;&lt;/li&gt;
+&lt;li&gt;описание spark streaming;&lt;/li&gt;
+&lt;li&gt;поверхностный обзор spark sql и MlLib.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Не уверен, что книжка намного полезнее, чем официальная документация, но читать её однозначно проще. После общего обзора можно углубиться в то, что показалось интересным.&lt;/p&gt;
+
+&lt;p&gt;Чтобы лучше понять, как работает спарк, советую презентацию &lt;a href=&#34;https://www.youtube.com/watch?v=dmL0N3qfSc8&#34;&gt;A Deeper Understanding of Spark Internals — Aaron Davidson (Databricks)&lt;/a&gt;. Там есть обзор модели построения запросов (DAG) и он объясняет, как работает shuffling, мне стало понятнее, что Spark может оптимизировать, а что нет.&lt;/p&gt;
+
+&lt;p&gt;Ещё мне понравилась книга &lt;a href=&#34;http://shop.oreilly.com/product/0636920046967.do&#34;&gt;High Performance Spark By Holden Karau, Rachel Warren&lt;/a&gt;. Там спарк тоже рассматривается достаточно глубоко, она ещё не вышла полностью, но первые четыре главы выглядят многообещающе. Из неё я лучше понял, как работает планировка запроса. Узнал, что dataframe api и spark sql работают быстрее, чем стандартные rdd и понял почему.&lt;/p&gt;
+
+&lt;p&gt;Ещё советую прочитать про колоночный формат файлов &lt;a href=&#34;https://parquet.apache.org/&#34;&gt;Parquet&lt;/a&gt;. Мне понравилась их &lt;a href=&#34;https://www.youtube.com/watch?v=MZNjmfx4LMc&#34;&gt;презентация&lt;/a&gt; (&lt;a href=&#34;http://www.slideshare.net/cloudera/hadoop-summit-36479635&#34;&gt;слайды в нормальном качестве&lt;/a&gt;), особенно та часть, где они показали, что производительность аналитики текста в сжатом формате выше, чем в исходном. Не уверен, что такие бенчмарки реально полезны, но они впечатляют.&lt;/p&gt;
+
+&lt;p&gt;Я продолжаю учить спарк, если что-то найду, добавлю сюда. Если знаете, что-то, что поможет понять Spark лучше, пишите в коментариях, я добавлю в статью.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>«Сначала скажите „Нет“» — Д. Кемп</title>
