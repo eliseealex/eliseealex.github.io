@@ -6,8 +6,36 @@
     <description>Recent content on Блог Александра Елисеева</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Aug 2016 10:48:13 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 26 Aug 2016 08:48:13 +0300</lastBuildDate>
     <atom:link href="http://eliseealex.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Велопутешествие в Европу</title>
+      <link>http://eliseealex.me/lifelist/6-veloschengen/</link>
+      <pubDate>Fri, 26 Aug 2016 08:48:13 +0300</pubDate>
+      
+      <guid>http://eliseealex.me/lifelist/6-veloschengen/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;http://eliseealex.me/image/lifelist/6-route.jpg&#34; style=&#34;max-width: 650px;&#34; title=&#34;Маршрут на Strida в велошенгене&#34; alt=&#34;Маршрут на Strida в велошенгене&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Съездил в велопутешествие в Финляндию. Наконец выгулял свой велик за границу.&lt;/p&gt;
+
+&lt;p&gt;Путешествие организовал &lt;a href=&#34;https://vk.com/veloschengen&#34;&gt;велошенген&lt;/a&gt;, если кому-то нужно откатать визу в Финку, очень советую. В 9 утра я сел в маршрутку и поехал к границе. В Питере всё утро шёл дождь и я думал, что поездка выйдет грустной и сложной. Но нам повезло, в Финляндии оказалось солнечно и тепло, я даже искупался первый раз за лето, пусть и в ледяной воде.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://eliseealex.me/image/lifelist/6-weather.jpg&#34; style=&#34;max-width: 650px;&#34; title=&#34;Перерыв на пикник и замечательные погоды&#34; alt=&#34;Перерыв на пикник и замечательные погоды&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Если кто-то ещё не знает, я катаюсь на Strida, это такой треугольный складной велик с маленькими колёсами. Многие относятся к нему несерьёзно и не понимают его прелести, но я покупал его как раз из-за размеров, чтобы ездить в такие путешествия. 50 км показались очень простыми, самое то для тех, кто сомневается. Ехали медленно, в прогулочном темпе, часто отдыхали, ждали друг друга, и никуда не торопились.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://eliseealex.me/image/lifelist/6-strida.jpg&#34; style=&#34;max-width: 650px;&#34; title=&#34;Моя Strida&#34; alt=&#34;Моя Strida&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Конечно, хочу ещё.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;http://eliseealex.me/lifelist&#34;&gt;Зачем я это делаю?&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+</description>
+    </item>
     
     <item>
       <title>«Learning Spark» — Holden Karau, Andy Konwinski, Patrick Wendell, Matei Zaharia</title>
@@ -372,6 +400,8 @@ sudo docker run --name=lise-bot --net=host eliseealex/lise-bot:1.0-SNAPSHOT -Dbo
 
 &lt;p&gt;&lt;a href=&#34;http://eliseealex.me/lifelist&#34;&gt;Зачем я это делаю?&lt;/a&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;a href=&#34;http://eliseealex.me/lifelist/6-veloschengen&#34;&gt;Следующее дело&lt;/a&gt;&lt;/p&gt;
+
 &lt;/div&gt;
 
 </description>
@@ -510,7 +540,7 @@ sudo docker run --name=lise-bot --net=host eliseealex/lise-bot:1.0-SNAPSHOT -Dbo
 &lt;li&gt;Пойти на курсы хора;&lt;/li&gt;
 &lt;li&gt;Съездить в Европу на несколько дней с рюкзаком;&lt;/li&gt;
 &lt;li&gt;Съездить в путешествие по хостелам (не бронируя ничего);&lt;/li&gt;
-&lt;li&gt;Съездить в велопутешествие;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://eliseealex.me/lifelist/6-veloschengen&#34;&gt;&lt;i class=&#34;fa fa-trophy&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt; Съездить в велопутешествие&lt;/a&gt;;&lt;/li&gt;
 &lt;li&gt;Прожить месяц вне дома;&lt;/li&gt;
 &lt;li&gt;Побывать на венском балу;&lt;/li&gt;
 &lt;li&gt;Переехать;&lt;/li&gt;
@@ -952,28 +982,6 @@ object Main extends App with StrictLogging {
 
 &lt;/div&gt;
 
-</description>
-    </item>
-    
-    <item>
-      <title>Полезняшки</title>
-      <link>http://eliseealex.me/poleznyashki/</link>
-      <pubDate>Fri, 13 May 2016 21:45:13 +0300</pubDate>
-      
-      <guid>http://eliseealex.me/poleznyashki/</guid>
-      <description>&lt;p&gt;Информация:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://youtu.be/MQ7U_nxHeYo?t=26m39s&#34;&gt;как писать сопроводительное письмо при устройстве на работу&lt;/a&gt;;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Автоматизация работы:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.alfredapp.com/&#34;&gt;Альфред для mac os x&lt;/a&gt;;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/voldmar/alfred-typograf&#34;&gt;Типограф лебедева для Альфреда&lt;/a&gt;;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://eliseealex.me/blog/first-analytic/#шаблон-статьи:26bc0f213fee00a2a80679d0769aa1e4&#34;&gt;Сниппет для создания текста&lt;/a&gt;;&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     
