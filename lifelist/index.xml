@@ -32,25 +32,6 @@
     </item>
     
     <item>
-      <title>Написал статью в корпоративный блог на хабр</title>
-      <link>http://eliseealex.me/lifelist/13-article/</link>
-      <pubDate>Sun, 12 Mar 2017 09:48:13 +0100</pubDate>
-      
-      <guid>http://eliseealex.me/lifelist/13-article/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://habrahabr.ru/company/wrike/blog/322366/&#34;&gt;Первая&lt;/a&gt; — не зашла.
-Слишком менеджерская, надо было рассказать всё это на докладе, а тему доклада расписать здесь.&lt;/p&gt;
-
-&lt;p&gt;Пишу вторую, исправляюсь.&lt;/p&gt;
-
-&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
-  &lt;p&gt;&lt;a href=&#34;http://eliseealex.me/lifelist&#34;&gt;Зачем я это делаю?&lt;/a&gt;&lt;/p&gt;
-
-&lt;/div&gt;
-
-</description>
-    </item>
-    
-    <item>
       <title>Выступить с докладом</title>
       <link>http://eliseealex.me/lifelist/23-doclad/</link>
       <pubDate>Sat, 04 Mar 2017 08:59:13 +0300</pubDate>
@@ -457,6 +438,33 @@
   &lt;p&gt;&lt;a href=&#34;http://eliseealex.me/lifelist&#34;&gt;Зачем я это делаю?&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://eliseealex.me/lifelist/19-osteo&#34;&gt;Следующее дело&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://eliseealex.me/lifelist/13-article/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://eliseealex.me/lifelist/13-article/</guid>
+      <description>&lt;p&gt;1+++
+date = &amp;ldquo;2017-03-12T09:48:13+01:00&amp;rdquo;
+title = &amp;ldquo;Написал статью в корпоративный блог на хабр&amp;rdquo;
+description = &amp;ldquo;Ожидал большего&amp;rdquo;
+metakeywords = &amp;ldquo;Благодарность, планы, lifelist&amp;rdquo;
+author = &amp;ldquo;Александр Елисеев&amp;rdquo;
++++&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://habrahabr.ru/company/wrike/blog/322366/&#34;&gt;Первая&lt;/a&gt; — не зашла.
+Слишком менеджерская, надо было рассказать всё это на докладе, а тему доклада расписать здесь.&lt;/p&gt;
+
+&lt;p&gt;Пишу вторую, исправляюсь.&lt;/p&gt;
+
+&lt;div class=&#34;factoid factoid-bottom&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;http://eliseealex.me/lifelist&#34;&gt;Зачем я это делаю?&lt;/a&gt;&lt;/p&gt;
 
 &lt;/div&gt;
 
